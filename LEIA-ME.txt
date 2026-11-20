@@ -1,0 +1,14 @@
+# LIFE LEVEL — PWA
+
+## Publicar no GitHub Pages
+1. Abra o repositório `Life-Level` no GitHub.
+2. Substitua o `index.html` atual pelo `index.html` desta pasta.
+3. Envie também `manifest.webmanifest`, `sw.js` e a pasta `icons/` completa.
+4. Faça commit. Não coloque esses arquivos dentro de uma subpasta do repositório: eles precisam ficar na raiz, ao lado de index.html.
+5. Aguarde o GitHub Pages atualizar e abra `https://krugner98.github.io/Life-Level/` usando HTTPS.
+
+## Instalar no celular
+- Android/Chrome: abra o endereço publicado, toque no menu ⋮ e escolha **Instalar app** ou **Adicionar à tela inicial**.
+- iPhone/Safari: toque em **Compartilhar** e depois **Adicionar à Tela de Início**.
+
+O app mantém os dados locais e continua usando a sincronização Supabase já configurada. O service worker faz cache do shell do app para permitir abrir a interface sem conexão depois do primeiro carregamento. Recursos que dependem da internet, como login/sincronização e bibliotecas externas não armazenadas, ainda precisam de conexão.
