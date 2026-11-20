@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1119">
+<title>LIFE LEVEL — Daily OS</title>
+<style>
+:root{--bg:#0a111a;--side:#0e1824;--panel:#131f2c;--panel2:#19293a;--line:#293c50;--txt:#edf4fa;--muted:#91a3b7;--mint:#63d9aa;--blue:#84b5ff;--gold:#f1c979;--purple:#c2a5ff;--red:#ff9292}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -20%,#20384a 0,transparent 36%),var(--bg);color:var(--txt);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.shell{min-height:100vh;display:grid;grid-template-columns:236px 1fr}.sidebar{background:#0d1722;border-right:1px solid var(--line);padding:23px 14px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;align-items:center;gap:10px;padding:0 9px}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#7ce6bd,#2f8e84);display:grid;place-items:center;color:#082019;font-weight:900}.brand b{letter-spacing:2px}.brand small{display:block;color:#8094a9;font-size:9px;letter-spacing:1.4px}.navlabel{font-size:9px;color:#647a90;letter-spacing:1.8px;padding:0 12px 7px;font-weight:800}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#9aabbd;text-align:left;padding:11px 12px;border-radius:11px;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#1b3933;color:#a9f0d0}.nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.sidelevel{margin-top:auto;background:#142333;border:1px solid var(--line);border-radius:13px;padding:13px}.sidelevel small{color:var(--muted);font-size:10px}.sidelevel strong{display:block;font-size:21px;color:var(--gold)}.main{width:100%;max-width:1450px;margin:auto;padding:24px clamp(16px,3vw,42px) 42px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.crumb{color:var(--muted);font-size:12px}.datepill{border:1px solid var(--line);padding:7px 11px;border-radius:30px;color:var(--muted);font-size:11px}.page{display:none;animation:fade .18s}.page.active{display:block}@keyframes fade{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}h1{font-size:clamp(25px,3vw,34px);margin:5px 0}.kicker{font-size:10px;letter-spacing:2px;color:var(--mint);font-weight:800}.muted{color:var(--muted)}.sub{font-size:11px;color:var(--muted)}.card{background:linear-gradient(145deg,#142231,#111b27);border:1px solid var(--line);border-radius:16px;padding:18px}.row{display:flex;align-items:center;gap:10px}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.grid{display:grid;gap:14px}.homehero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-bottom:17px}.level{width:205px;background:#172938;border:1px solid #30495a;border-radius:14px;padding:13px}.level b{font-size:27px;color:var(--gold)}.bar{height:7px;background:#2b3c4c;border-radius:20px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--mint),#a4f1cb);border-radius:20px}.todaygrid{grid-template-columns:1.25fr .75fr}.dayhero{background:linear-gradient(115deg,#183b36,#172c38);border:1px solid #315d54;border-radius:17px;padding:19px;margin-bottom:14px}.dayhero h2{font-size:21px;margin:4px 0}.dayhero p{color:#b2c8c7;margin:0;font-size:12px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.calhead{text-align:center;color:#8194a8;font-size:9px;padding:5px 0}.calday{min-height:57px;border:1px solid #2b3d50;background:#152333;border-radius:9px;color:#dce8f4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px}.calday small{font-size:9px;color:var(--muted)}.calday.scored{background:linear-gradient(180deg,rgba(99,217,170,.14),#152333);border-color:rgba(99,217,170,.48)}.calday .cal-score{font-size:9px;font-weight:800;color:#91a3b7}.calday.scored .cal-score{color:#63d9aa}.calday.selected{border-color:var(--mint);background:#1c3b35;box-shadow:inset 0 0 0 1px #63d9aa55}.calday.today{outline:1px solid #84b5ff}.calday.out{opacity:.3}.dot{width:5px;height:5px;border-radius:50%;background:var(--mint)}.btn{border:1px solid #37695b;background:#1b3b34;color:#aaf1d1;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:700}.btn.ghost{background:#182737;border-color:var(--line);color:#c4d2df}.btn:disabled{opacity:.4;cursor:not-allowed}.sectionhead{margin-bottom:13px}.sectionhead b{font-size:14px}.meal,.exercise{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-top:1px solid #28394b}.meal:first-of-type,.exercise:first-of-type{border-top:0}.tick{width:19px;height:19px;accent-color:#63d9aa;flex:none;margin-top:2px}.meal b,.exercise b{font-size:12px}.meal small,.exercise small{display:block;color:var(--muted);font-size:10px}.meal.done b,.exercise.done b{text-decoration:line-through;color:#8295a9}.mealright{margin-left:auto;text-align:right;font-size:10px;color:var(--muted);white-space:nowrap}.metricrow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}.metric{background:#182838;border:1px solid #2b4054;border-radius:12px;padding:12px}.metric small{display:block;color:var(--muted);font-size:9px}.metric strong{font-size:18px}.progressring{font-size:26px;font-weight:800;color:var(--mint)}.tag{font-size:9px;color:var(--mint);background:#1b3b34;padding:4px 7px;border-radius:20px}.daytask{padding:10px 0;border-top:1px solid #28394b}.daytask:first-child{border-top:0}.daytask b{font-size:12px}.daytask small{display:block;color:var(--muted);font-size:10px}.pagehead{margin-bottom:19px}.pagehead p{color:var(--muted);margin:0}.weeknav{display:flex;align-items:center;gap:8px}.iconbtn{background:#172737;border:1px solid var(--line);color:#cbd9e6;border-radius:8px;padding:7px 10px}.workout-summary{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#182d3b;border:1px solid #315064;border-radius:13px;padding:15px}.workout-summary .big{font-size:17px;font-weight:800}.workout-summary .desc{font-size:11px;color:var(--muted);margin-top:3px}.workout-options{display:none;margin-top:12px;padding:13px;background:#101c28;border:1px solid var(--line);border-radius:12px}.workout-options.open{display:block}.workoutchoice{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);background:#162536;color:var(--txt);padding:11px 12px;border-radius:10px;text-align:left;margin-top:7px}.workoutchoice.active{border-color:var(--mint);background:#1a3933}.workoutchoice b{display:block;font-size:12px}.workoutchoice small{color:var(--muted);font-size:10px}.choicecheck{color:var(--mint);font-size:11px;font-weight:800}.workout-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.exercisegrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.setchecks{display:flex;gap:7px;margin-top:8px}.setchecks label{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:3px}.setchecks input{accent-color:var(--mint)}.foodnote{background:#182b38;border:1px solid #30495b;border-radius:11px;padding:11px;color:#a9bbc9;font-size:11px}.xpbadge{color:var(--gold);font-size:10px}.tablelist{display:grid;gap:0}.historyrow{display:flex;justify-content:space-between;border-top:1px solid #293b4d;padding:10px 0;font-size:11px}.modalback{position:fixed;inset:0;background:#03080ec9;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modalback.show{display:flex}.modal{width:min(430px,100%);background:#142231;border:1px solid #385064;border-radius:16px;padding:20px}.field{display:grid;gap:5px;margin:11px 0}.field label{font-size:11px;color:var(--muted)}.field input{padding:10px;background:#0c1621;border:1px solid #30465a;color:var(--txt);border-radius:8px}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.toast{position:fixed;bottom:20px;right:20px;background:#1b3c34;border:1px solid #39715f;color:#b8f4d9;padding:11px 15px;border-radius:11px;display:none;z-index:20}.toast.show{display:block}
+.season-banner{background:linear-gradient(110deg,#173b35,#172b3b);border:1px solid #356357;border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.mode-overlay{position:fixed;inset:0;background:#08111b;z-index:50;display:none;flex-direction:column;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);overflow:auto}
+.mode-overlay.show{display:flex}
+.mode-top{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.mode-main{width:min(620px,100%);margin:auto;display:flex;flex-direction:column;gap:15px;padding:20px 0}
+.mode-exercise{font-size:clamp(27px,7vw,40px);line-height:1.12;font-weight:850;letter-spacing:-.7px}
+.mode-stat{background:#172839;border:1px solid #2d455b;border-radius:13px;padding:13px;text-align:center}
+.mode-stat strong{font-size:22px;display:block}
+.mode-set{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid #30465a;border-radius:11px;background:#142333;margin-top:8px}
+.mode-set.done{background:#1b3b34;border-color:#4a987c}
+.mode-set button{border:1px solid #3c5b70;background:#1b3043;color:#e8f2fb;border-radius:9px;padding:9px 13px;font-weight:800}
+.mode-set.done button{background:#245a49;border-color:#63d9aa;color:#d8ffec}
+.mode-load{width:100%;background:#0c1722;color:var(--txt);border:1px solid #354b60;border-radius:10px;padding:12px;font-size:18px}
+.mode-actions{display:flex;gap:9px}
+.mode-actions button{flex:1;padding:13px}
+.timer-pill{background:#243b4e;border-radius:12px;padding:12px;text-align:center;color:#c8e1f7;font-weight:800;font-size:23px}
+@media(max-width:520px){.mode-main{padding:15px 0}.mode-set{padding:10px}.season-banner{padding:12px}}
+
+.workout-picker{position:fixed;inset:0;background:#03080edb;z-index:30;display:none;align-items:flex-end;justify-content:center;padding:14px}
+.workout-picker.show{display:flex}
+.picker-sheet{width:min(620px,100%);max-height:88vh;overflow:auto;background:#142231;border:1px solid #3a5369;border-radius:20px;padding:19px;box-shadow:0 24px 80px #000a}
+.picker-grip{width:42px;height:4px;border-radius:9px;background:#526477;margin:0 auto 16px}
+.picker-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.picker-option{border:1px solid #30465a;background:#182a3b;color:var(--txt);border-radius:13px;padding:13px;text-align:left;min-height:90px;display:flex;flex-direction:column;justify-content:space-between;gap:7px}
+.picker-option.selected{border-color:var(--mint);background:#1b3b34;box-shadow:inset 0 0 0 1px #63d9aa55}
+.picker-option.recommended{border-color:#806c3f}
+.picker-option b{font-size:13px}
+.picker-option small{font-size:10px;color:var(--muted);line-height:1.35}
+.picker-option em{font-style:normal;font-size:9px;color:var(--mint);font-weight:800;letter-spacing:.5px}
+.picker-option.recommended em{color:var(--gold)}
+.picker-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px}
+@media(max-width:430px){.picker-sheet{padding:16px}.picker-option{min-height:84px;padding:11px}.picker-grid{gap:7px}}
+.footnote{font-size:10px;color:#7e91a6;margin-top:12px}
+@media(max-width:850px){.shell{grid-template-columns:1fr}.sidebar{position:sticky;top:0;z-index:5;padding:9px 12px;border-right:0;border-bottom:1px solid var(--line);flex-direction:row;align-items:center;justify-content:space-between}.navwrap{overflow:auto;max-width:72%}.navlabel,.sidelevel,.navtxt{display:none}.nav{display:flex}.nav button{padding:9px}.main{padding:17px 13px 32px}.todaygrid{grid-template-columns:1fr}.homehero{grid-template-columns:1fr}.level{width:100%}}
+@media(max-width:560px){.metricrow{grid-template-columns:1fr 1fr}.workoutcards{grid-template-columns:1fr 1fr}.exercisegrid{grid-template-columns:1fr}.calday{min-height:47px}.card{padding:14px}}
+
+.achievement-pop{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(3,8,14,.72);backdrop-filter:blur(7px)}
+.achievement-pop.show{display:flex;animation:achFade .22s ease-out}
+.achievement-pop-card{width:min(390px,100%);text-align:center;position:relative;overflow:hidden;background:linear-gradient(155deg,#203b42,#142231 62%);border:1px solid #6ccca8;border-radius:22px;padding:27px 23px 22px;box-shadow:0 22px 80px #000b,0 0 35px #63d9aa22}
+.achievement-pop-card:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,#63d9aa,#f1c979,#84b5ff)}
+.achievement-pop-kicker{font-size:10px;letter-spacing:3px;color:#8be4bd;font-weight:900}
+.achievement-pop-icon{font-size:58px;line-height:1.25;margin:14px 0 8px;filter:drop-shadow(0 5px 14px #63d9aa55);animation:achBounce .55s ease-out}
+.achievement-pop-card h2{font-size:24px;margin:4px 0 5px;color:#f3f7fa}
+.achievement-pop-card p{font-size:12px;color:#aebfcb;margin:0}
+.achievement-pop-rarity{display:inline-block;margin:12px 0 15px;padding:5px 11px;border:1px solid #54766d;border-radius:30px;color:#a9f0d0;font-size:10px;font-weight:800}
+.achievement-pop-xp{font-size:22px;font-weight:900;color:#f1c979;margin:2px 0 17px}
+.achievement-pop-card button{min-width:130px}
+@keyframes achFade{from{opacity:0}to{opacity:1}}
+@keyframes achBounce{0%{transform:scale(.35) rotate(-15deg);opacity:0}65%{transform:scale(1.16) rotate(5deg)}100%{transform:scale(1);opacity:1}}
+@media(min-width:700px){.achievement-pop-card{padding:32px 28px 25px}}
+
+
+.meal-row{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.meal-row:last-child{border-bottom:0}
+.meal-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.meal-actions button{font-size:11px;padding:6px 9px}
+.meal-status{font-size:10px;font-weight:800;letter-spacing:.3px}
+.meal-status.planned{color:#8be4bd}.meal-status.sub{color:#f1c979}.meal-status.skip{color:#91a3b7}
+.nutrition-totals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.nutrition-totals .metric{padding:11px}
+.weekly-review{background:linear-gradient(135deg,#1b3933,#172b3b);border:1px solid #356357;border-radius:15px;padding:16px;margin:12px 0}
+.weekly-review h3{margin:0 0 5px}
+.weekly-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.weekly-cell{background:#0b1924aa;border-radius:10px;padding:10px}
+.weekly-cell small{display:block;color:#9db0bf;font-size:10px}
+.weekly-cell b{font-size:18px}
+
+
+.food-estimate-note{font-size:11px;color:#aebfcb;line-height:1.45;margin-top:7px}
+.food-estimate-note strong{color:#f1c979}
+
+
+.water-card{background:linear-gradient(135deg,#142d3c,#172b3b);border:1px solid #31556b;border-radius:15px;padding:15px;margin:12px 0}
+.water-glass{font-size:24px}
+.water-bar{height:9px;background:#0b1924;border-radius:10px;overflow:hidden;margin:9px 0}
+.water-fill{height:100%;background:linear-gradient(90deg,#4da9dc,#76d9ec);border-radius:10px;transition:width .2s}
+.water-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.water-actions .btn{flex:1;min-width:68px;padding:9px;font-size:12px}
+
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10h-6v-7H9v7H3z"/></symbol><symbol id="wallet" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 9h18m-5 5h2"/></symbol><symbol id="utensils" viewBox="0 0 24 24"><path d="M4 3v7m4-7v7M4 7h4m-2 3v11M15 3v18m0-18c4 2 5 6 0 9"/></symbol><symbol id="dumbbell" viewBox="0 0 24 24"><path d="M6 9v6m12-6v6M3 10v4m18-4v4M6 12h12"/></symbol><symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol><symbol id="calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol><symbol id="award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12 7 22l5-3 5 3-1.5-10M9 8l2 2 4-4"/></symbol></svg>
+<div class="shell">
+<aside class="sidebar">
+ <div class="brand"><div class="logo">LL</div><div><b>LIFE LEVEL</b><small>YOUR DAILY LIFE OS</small></div></div>
+ <div class="navwrap"><div class="navlabel">AMBIENTES</div><nav class="nav">
+ <button class="active" data-page="home"><svg><use href="#home"/></svg><span class="navtxt">Meu dia</span></button>
+ <button data-page="finance"><svg><use href="#wallet"/></svg><span class="navtxt">Patrimônio</span></button>
+ <button data-page="goals"><svg><use href="#target"/></svg><span class="navtxt">Metas de vida</span></button>
+ <button data-page="achievements"><svg><use href="#award"/></svg><span class="navtxt">Conquistas</span></button>
+ <button data-page="calendar"><svg><use href="#calendar"/></svg><span class="navtxt">Calendário</span></button>
+ <button data-page="history"><svg><use href="#award"/></svg><span class="navtxt">Meu histórico</span></button>
+ <button data-page="nutrition"><svg><use href="#utensils"/></svg><span class="navtxt">Nutrição</span></button>
+ <button data-page="training"><svg><use href="#dumbbell"/></svg><span class="navtxt">Treinamento</span></button>
+
+ </nav></div>
+ <div class="sidelevel"><small>NÍVEL GERAL</small><strong id="sidelevel">01</strong><small id="sidexp">0 XP acumulados</small></div>
+</aside>
+<main class="main">
+<header class="top"><div class="crumb" id="crumb">Seu espaço / Meu dia</div><div class="row" style="gap:8px"><div class="datepill" id="syncStatus">● Somente neste dispositivo</div><button class="btn ghost" id="authButton" onclick="openAuth()">Entrar / Sincronizar</button><div class="datepill" id="todaylabel"></div></div></header>
+
+<section class="page active" id="home">
+ <div class="homehero"><div><div class="kicker">SUA JORNADA • 2026–2030</div><h1>Vamos fazer hoje valer. ✨</h1><div class="muted" id="daygreeting">Seu plano de hoje está pronto.</div></div><div class="level"><div class="between"><span class="sub">NÍVEL GERAL</span><b id="level">01</b></div><div class="bar"><div class="fill" id="xpbar"></div></div><div class="between sub" style="margin-top:6px"><span id="xptext">0 / 500 XP</span><span id="rank">INICIANTE</span></div></div></div>
+ <div id="weeklyReviewHome"></div>
+ <div class="dayhero"><div class="between"><div><div class="kicker" id="daylabel">HOJE</div><h2 id="daytitle">Seu plano diário</h2><p id="dayquote">Faça o próximo passo, não todos de uma vez.</p></div><div class="progressring" id="daypercent">0%</div></div><div class="bar" style="margin-top:13px;background:#31534d"><div class="fill" id="daybar"></div></div></div>
+ <div class="grid todaygrid">
+  <div class="grid">
+   <div class="card"><div class="between sectionhead"><div><b>🍽️ Sua alimentação de hoje</b><div class="sub">Cardápio pronto · marque conforme consumir</div></div><span class="tag" id="mealcount">0/4</span></div><div id="todaymeals"></div><div class="footnote" id="nutritionfooter">Meta diária aproximada: 2.000 kcal · proteína elevada.</div></div>
+   <div class="card"><div class="between sectionhead"><div><b>🏋️ Treino do dia</b><div class="sub" id="workoutsubtitle">Sugestão baseada no seu calendário</div></div><button class="btn ghost" onclick="go('training')">Ver ficha →</button></div><div id="todayworkout"></div><div class="row" style="margin-top:13px"><button class="btn" style="flex:1;padding:12px" onclick="startWorkoutMode()">▶ Iniciar treino</button><button class="btn ghost" style="padding:12px" onclick="openWorkoutPicker()">⇄ Trocar</button></div></div>
+  </div>
+  <div class="grid">
+   <div class="card"><div class="between sectionhead"><b>📅 Próximos compromissos</b><button class="btn ghost" onclick="go('calendar')">Calendário →</button></div><div id="upcoming"></div></div>
+   <div class="card"><b>⚡ Seu progresso real</b><div class="metricrow" style="margin-top:12px"><div class="metric"><small>XP TOTAL</small><strong id="totalxp">0</strong></div><div class="metric"><small>DIAS ATIVOS</small><strong id="activedays">0</strong></div></div><div class="sub">Os pontos são concedidos automaticamente conforme você registra refeições e conclui séries. Nada de botão de “cumpri a meta”.</div></div>
+   <div class="card"><b>🎯 Foco da semana</b><div class="daytask"><b>Consistência alimentar</b><small>Concluir refeições previstas nos dias planejados.</small></div><div class="daytask"><b>Treinar conforme a programação</b><small>O descanso também faz parte do plano.</small></div><div class="daytask"><b>Construir patrimônio</b><small>Atualizar carteira e acompanhar metas financeiras.</small></div></div>
+  </div>
+ </div>
+ <div id="waterTrackerHome"></div>
+
+ <div class="card" id="weeklyWeighTask" style="margin-top:14px;border-color:#b88a45;display:none">
+  <div class="between"><div><div class="kicker" style="color:#f1c979">META DA QUINTA-FEIRA</div><b>⚖️ Dia de pesagem</b><div class="sub" id="weighTaskText">Registre seu peso desta semana.</div></div><span class="tag">SEMANAL</span></div>
+  <div style="margin-top:12px"><button class="btn" onclick="openWeight()">Registrar peso de hoje</button></div>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <div class="between sectionhead"><div><b>⚖️ Evolução do peso</b><div class="sub">Acompanhe a tendência, sem se prender às oscilações diárias.</div></div><span class="tag">Pesagem semanal · quinta-feira</span></div>
+  <div class="metricrow"><div class="metric"><small>PESO ATUAL</small><strong id="weightcurrent">—</strong></div><div class="metric"><small>META</small><strong>90 kg</strong></div><div class="metric"><small>FALTAM</small><strong id="weightremaining">—</strong></div></div>
+  <div id="weightchart" style="min-height:170px"></div>
+ </div>
+</section>
+
+<section class="page" id="achievements">
+ <div class="pagehead"><div class="kicker">ACHIEVEMENT HALL</div><h1><span style="display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#1b3933;color:#a9f0d0;font-size:23px;vertical-align:middle;margin-right:5px">🏆</span> Conquistas</h1><p>Uma coleção de marcos da sua evolução. Continue registrando sua rotina para revelar novas medalhas.</p></div>
+ <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:14px">
+  <div class="card"><div class="sub">DESBLOQUEADAS</div><h1 id="achievementCount">0/0</h1></div>
+  <div class="card"><div class="sub">XP DE CONQUISTAS</div><h1 id="achievementXP">0</h1></div>
+ </div>
+ <div class="card"><div class="between sectionhead"><b>Galeria de medalhas</b><span class="tag">Desbloqueio automático</span></div><div id="achievementGrid" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))"></div></div>
+</section>
+<section class="page" id="history">
+ <div class="pagehead"><div class="kicker">YOUR JOURNEY</div><h1>Meu histórico</h1><p>Uma visão consolidada dos seus registros e da sua evolução ao longo do tempo.</p></div>
+ <div id="historyOverview" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:14px"></div><div class="card" style="margin-bottom:14px"><b>📅 Fechamento mensal</b><div class="sub">Resumo do mês atual com base nos registros disponíveis.</div><div id="historyMonthly" style="margin-top:10px"></div></div>
+ <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+  <div class="card"><b>📈 Patrimônio</b><div id="historyWealth" style="margin-top:10px"></div></div>
+  <div class="card"><b>⚖️ Peso</b><div id="historyWeight" style="margin-top:10px"></div></div>
+  <div class="card"><b>🏋️ Treinos</b><div id="historyWorkouts" style="margin-top:10px"></div></div>
+  <div class="card"><b>🥗 Nutrição e hidratação</b><div id="historyNutrition" style="margin-top:10px"></div></div>
+  <div class="card"><b>🏆 Conquistas</b><div id="historyAchievements" style="margin-top:10px"></div></div>
+ </div>
+</section>
+<section class="page" id="calendar">
+ <div class="pagehead"><div class="kicker">PLANEJAMENTO</div><h1>Seu calendário</h1><p>Uma visão integrada de dieta, treinos e compromissos pessoais.</p></div>
+ <div class="card"><div class="between sectionhead"><button class="iconbtn" onclick="changeMonth(-1)">←</button><b id="monthtitle"></b><button class="iconbtn" onclick="changeMonth(1)">→</button></div><div class="calendar" id="calendargrid"></div><div class="footnote">LA: Lower A · UA: Upper A · ⚽ futebol · UB: Upper B · LB: Lower B · —: descanso. Medalhas indicam pontuação do dia. Selecione uma data para consultar ou organizar seu dia.</div></div>
+ <div class="card" style="margin-top:14px"><div class="between"><div><b id="selectedtitle">Dia selecionado</b><div class="sub">Resumo e planejamento</div></div><button class="btn ghost" onclick="go('home')">Abrir meu dia</button></div><div id="selectedsummary" style="margin-top:12px"></div></div>
+</section>
+
+<section class="page" id="nutrition">
+ <div class="pagehead"><div class="kicker">NUTRITION LEVEL</div><h1>Nutrição</h1><p>Registre o que realmente comeu. Substituições fazem parte do processo — sem precisar fingir que seguiu o cardápio.</p></div>
+ <div class="metricrow"><div class="metric"><small>ALVO CALÓRICO</small><strong>~2.000 kcal</strong></div><div class="metric"><small>PROTEÍNA</small><strong>180–200 g</strong></div><div class="metric"><small>REFEIÇÕES</small><strong id="nutritiondone">0/4</strong></div></div>
+ <div class="grid" style="grid-template-columns:1fr .8fr">
+  <div class="card"><div class="between sectionhead"><div><b>Cardápio diário</b><div class="sub" id="nutritiondate"></div></div><span class="tag">PLANO BASE</span></div><div class="sub">Descreva o que comeu e o LIFE LEVEL estima calorias e proteínas automaticamente usando uma base local de alimentos. Quanto mais detalhes de porção, melhor.</div><div class="food-estimate-note">Estimativas aproximadas; marcas, receitas, óleo e tamanho real das porções podem alterar os valores. Itens não reconhecidos serão sinalizados.</div><div class="nutrition-totals"><div class="metric"><small>CALORIAS</small><strong id="dayKcal">0</strong></div><div class="metric"><small>PROTEÍNA</small><strong id="dayProtein">0 g</strong></div><div class="metric"><small>REFEIÇÕES</small><strong id="dayMealCount">0/4</strong></div></div><div id="allmeals"></div></div>
+  <div class="card"><b>Substituições simples</b><div class="daytask"><b>Proteínas</b><small>Frango, patinho magro ou peixe, mantendo porção equivalente.</small></div><div class="daytask"><b>Carboidratos do jantar</b><small>100 g de arroz cozido ou 200 g de batata, conforme o plano.</small></div><div class="daytask"><b>Lanche</b><small>Whey, iogurte, aveia e fruta já previstos no cardápio.</small></div><div class="foodnote">As calorias reais variam conforme marcas, cortes, preparo e vegetais. O cardápio é uma referência inicial, não uma medição nutricional exata.</div></div>
+ </div>
+ <div id="waterTrackerNutrition"></div><div id="weeklyReviewNutrition"></div>
+</section>
+
+<section class="page" id="training">
+ <div class="season-banner" id="seasonBanner">
+  <div class="between" style="align-items:flex-start;gap:10px">
+   <div><div class="kicker">CICLO DE TREINAMENTO · TEMPORADA 01</div><b style="font-size:18px">09 dez 2026 — 02 fev 2027</b><div class="sub" style="margin-top:5px">Validade da ficha: 8 semanas completas</div></div>
+   <span class="tag" style="white-space:nowrap">CICLO 01</span>
+  </div>
+  <div id="seasonStatus" style="font-weight:800;margin-top:13px;color:#a9f0d0">Preparação do ciclo</div>
+  <div style="height:7px;background:#0b1a24;border-radius:9px;overflow:hidden;margin-top:8px"><div id="seasonProgress" style="height:100%;width:0%;background:linear-gradient(90deg,#63d9aa,#f1c979);border-radius:9px"></div></div>
+  <div class="between" style="margin-top:6px"><span class="sub" id="seasonProgressText">Início em 09/12/2026</span><span class="sub">Revisão: 03/02/2027</span></div>
+  <div class="sub" style="margin-top:12px"><b>Estrutura semanal:</b> segunda Lower A · terça Upper A · quarta futebol · quinta Upper B · sexta descanso · sábado Lower B · domingo descanso.</div>
+  <div class="sub" style="margin-top:8px"><b>Progressão do ciclo:</b> semanas 1–2 adaptação e calibração de cargas; semanas 3–4 progressão gradual; semana 5 (06–12 jan) deload; semanas 6–7 nova progressão; semana 8 consolidação e avaliação.</div>
+  <div style="margin-top:12px;padding:11px 12px;border-radius:10px;background:#0d2029;border:1px solid #315448">
+   <b style="font-size:12px;color:#a9f0d0">O QUE ACONTECE QUANDO A FICHA TERMINAR?</b>
+   <div class="sub" style="margin-top:5px">Em 03/02/2027 fazemos a revisão: cargas, evolução, exercícios, recuperação e aderência. A ficha atual encerra em 02/02; não vamos simplesmente repetir o ciclo. Voltamos aqui para montar a Temporada 02 com base no seu desempenho real.</div>
+  </div>
+ </div>
+
+ <div class="pagehead"><div class="kicker">TRAINING LEVEL</div><h1>Treinamento</h1><p>Escolha a ficha do dia, execute e marque cada série. O histórico registra suas cargas.</p></div>
+ <div class="card"><div class="between sectionhead"><div><b id="traindate">Treino do dia</b><div class="sub" id="recommended">Recomendação da semana</div></div><span class="tag" id="trainstatus">NÃO INICIADO</span></div><div class="workout-summary"><div><div class="big" id="selectedWorkoutName">Treino recomendado</div><div class="desc" id="selectedWorkoutDesc">Sua ficha para hoje</div></div><div class="row"><button class="btn ghost" onclick="openWorkoutPicker()">⇄ Trocar</button><button class="btn" onclick="startWorkoutMode()">▶ Iniciar treino</button></div></div><div class="workout-actions"><button class="btn" onclick="focusExercises()">Ver exercícios ↓</button><span class="sub" id="workoutRecommendationNote" style="align-self:center">Recomendado para hoje</span></div><div class="workout-options" id="workoutOptions"><div class="between"><b style="font-size:12px">Escolha outra ficha</b><span class="sub">A recomendação fica destacada</span></div><div id="workoutchoices"></div></div></div>
+ <div class="card" style="margin-top:14px"><div class="between sectionhead"><div><b id="workoutname">Treino recomendado</b><div class="sub" id="workoutdesc">Marque as séries concluídas.</div></div><span class="xpbadge" id="trainxp">+ XP por série</span></div><div id="exerciseList"></div></div>
+ 
+ <div class="card" style="margin-top:14px"><b>📈 Progressão da temporada</b><div class="sub" style="margin-top:5px">Semanas 1–2: ajuste de cargas e técnica · Semanas 3–4: progressão gradual · Semana 5: redução de volume · Semanas 6–7: nova progressão · Semana 8: consolidar e revisar.</div><div class="footnote">Trabalhe normalmente com 1–3 repetições em reserva. Quando atingir o topo da faixa de repetições em todas as séries com técnica estável, aumente a carga pelo menor incremento disponível. Não é necessário treinar até a falha.</div></div>
+<div class="card" style="margin-top:14px"><b>📈 Histórico de desempenho</b><div class="sub" style="margin:4px 0 10px">Últimas cargas registradas por exercício.</div><div id="traininghistory" class="tablelist"></div></div>
+</section>
+
+<section class="page" id="finance">
+ <div class="pagehead"><div class="kicker">WEALTH LEVEL</div><h1>Patrimônio</h1><p>O Investidor10 guarda os detalhes. Aqui você acompanha a visão macro da sua vida financeira.</p></div><div class="card" style="margin-bottom:14px"><div class="between"><div><b>🛡️ Segurança dos seus dados</b><div class="sub">Exporte um backup para guardar fora do navegador ou restaure um arquivo anterior.</div></div><span class="tag">BACKUP</span></div><div class="row" style="margin-top:10px;gap:8px"><button class="btn" onclick="exportBackup()">↓ Exportar backup</button><button class="btn ghost" onclick="$('backupFile').click()">↑ Restaurar backup</button><input id="backupFile" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(this.files[0])"></div></div>
+ <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-bottom:14px">
+  <div class="card"><div class="sub">PATRIMÔNIO ATUAL</div><h1 id="wealthtotal">R$ 115.335</h1><div class="sub">Último fechamento registrado</div></div>
+  <div class="card"><div class="sub">VARIAÇÃO NO HISTÓRICO</div><h1 id="wealthchange">—</h1><div class="sub" id="wealthchangehint">Registre os próximos meses para comparar</div></div>
+  <div class="card"><div class="sub">REGISTROS</div><h1 id="wealthcount">0</h1><div class="sub">Atualizações patrimoniais</div></div>
+ </div>
+ <div class="card" style="margin-bottom:14px">
+  <div class="between sectionhead"><div><b>📈 Evolução do patrimônio</b><div class="sub">O total é calculado automaticamente pela soma das categorias abaixo.</div></div><div class="row"><span class="tag">Calculado pela carteira</span><button class="btn ghost" onclick="recordWealthSnapshot()">Registrar fechamento</button></div></div>
+  <div id="wealthchart" style="min-height:190px"></div><div id="wealthhistory" style="margin-top:10px"></div>
+ </div>
+ <div class="card" style="margin-bottom:14px">
+  <div class="between sectionhead"><div><b>Distribuição macro da carteira</b><div class="sub">Valores aproximados por classe. Atualize quando quiser.</div></div><button class="btn ghost" onclick="openAllocation()">✎ Editar</button></div>
+  <div id="allocationchart"></div><div id="allocationlist" style="margin-top:10px"></div>
+ </div>
+ <div class="foodnote">💡 Regra do LIFE LEVEL: o patrimônio total é o número principal. A distribuição é apenas uma fotografia macro; o detalhamento e a rentabilidade por ativo continuam no Investidor10.</div>
+</section>
+<section class="page" id="goals">
+ <div class="pagehead"><div class="kicker">LIFE GOALS</div><h1>Metas de vida</h1><p>Acompanhe suas conquistas. Valores financeiros usam seu patrimônio total como referência, sem separar dinheiro em caixinhas.</p></div>
+ <div class="card"><div class="between sectionhead"><b>Suas conquistas</b><button class="btn" onclick="addGoal()">＋ Nova meta</button></div><div id="goallist"></div></div>
+</section>
+<div class="footnote" style="text-align:center;margin-top:25px">LIFE LEVEL v3.0 · Life Dashboard · Dados salvos neste navegador</div>
+</main></div>
+
+<div class="modalback" id="authback" onclick="if(event.target===this)closeAuth()">
+ <div class="modal">
+  <div class="between"><h3 style="margin:0">☁️ LIFE LEVEL Cloud</h3><button class="iconbtn" onclick="closeAuth()">✕</button></div>
+  <p class="sub">Entre ou crie sua conta para sincronizar seus dados entre dispositivos.</p>
+  <div class="field"><label>E-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+  <div class="field"><label>Senha</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres"></div>
+  <div class="actions" style="justify-content:space-between;flex-wrap:wrap">
+   <button class="btn ghost" onclick="signUpLifeLevel()">Criar conta</button>
+   <button class="btn" onclick="signInLifeLevel()">Entrar e sincronizar</button>
+  </div>
+  <div id="authMessage" class="footnote">Se a confirmação de e-mail estiver habilitada, confira sua caixa de entrada após criar a conta.</div>
+  <div id="signedInArea" style="display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+   <div class="sub" id="signedInEmail"></div>
+   <div class="row" style="margin-top:9px"><button class="btn ghost" onclick="manualSyncLifeLevel()">Sincronizar agora</button><button class="btn ghost" onclick="signOutLifeLevel()">Sair da conta</button></div>
+  </div>
+ </div>
+</div>
+
+<div class="modalback" id="modalback" onclick="if(event.target===this)closeModal()"><div class="modal"><h3 id="modaltitle">Registro</h3><div id="modalbody"></div><div class="actions"><button class="btn ghost" onclick="closeModal()">Cancelar</button><button class="btn" onclick="saveModal()">Salvar</button></div></div></div><div class="toast" id="toast"></div>
+<div class="achievement-pop" id="achievementPop" role="dialog" aria-modal="true" aria-live="polite" onclick="if(event.target===this)closeAchievementPopup()">
+ <div class="achievement-pop-card">
+  <div class="achievement-pop-kicker">LIFE LEVEL · CONQUISTA DESBLOQUEADA</div>
+  <div class="achievement-pop-icon" id="achievementPopIcon">🏆</div>
+  <h2 id="achievementPopName">Nova conquista</h2>
+  <p id="achievementPopDesc"></p>
+  <div class="achievement-pop-rarity" id="achievementPopRarity"></div>
+  <div class="achievement-pop-xp" id="achievementPopXP">+100 XP</div>
+  <button class="btn" onclick="closeAchievementPopup()">Continuar</button>
+ </div>
+</div>
+<div class="mode-overlay" id="workoutMode">
+ <div class="mode-top"><div><div class="kicker">LIFE LEVEL · MODO ACADEMIA</div><div class="sub" id="modeProgress">Exercício 1 de 7</div></div><button class="iconbtn" onclick="closeWorkoutMode()">Sair ✕</button></div>
+ <div class="mode-main">
+  <div><div class="sub" id="modeWorkoutName">Upper A</div><div class="mode-exercise" id="modeExerciseName">Supino máquina</div><div class="sub" id="modeExerciseMeta">3 séries · 8–12 repetições</div></div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+   <div class="mode-stat"><span class="sub">SÉRIES</span><strong id="modeSets">3</strong></div>
+   <div class="mode-stat"><span class="sub">REPS</span><strong id="modeReps">8–12</strong></div>
+   <div class="mode-stat"><span class="sub">DESCANSO</span><strong id="modeRest">90s</strong></div>
+  </div>
+  <div class="card"><div class="between"><b>Registre sua carga</b><span class="sub" id="modePrevious">Última sessão: —</span></div><input class="mode-load" id="modeLoad" type="number" min="0" step=".5" placeholder="Carga em kg" oninput="saveModeLoad()"><div class="sub" style="margin-top:7px">Use a mesma carga nas séries, ajustando se necessário.</div></div>
+  <div><div class="between"><b>Suas séries</b><span class="tag" id="modeSetCount">0/3 concluídas</span></div><div id="modeSetList"></div></div>
+  <div class="timer-pill" id="modeTimer">Descanso: pronto</div>
+  <div class="mode-actions"><button class="btn ghost" onclick="previousModeExercise()">← Anterior</button><button class="btn" onclick="nextModeExercise()">Próximo exercício →</button></div>
+  <button class="btn ghost" onclick="finishWorkoutMode()">Finalizar treino</button>
+ </div>
+</div>
+
+<div class="workout-picker" id="workoutPicker" onclick="if(event.target===this)closeWorkoutPicker()">
+ <div class="picker-sheet">
+  <div class="picker-grip"></div>
+  <div class="between"><div><div class="kicker">ESCOLHA LIVRE</div><h2 style="font-size:21px;margin:3px 0">Qual treino você quer fazer?</h2><div class="sub" id="pickerDate">Treino para hoje</div></div><button class="iconbtn" onclick="closeWorkoutPicker()">✕</button></div>
+  <div class="sub" style="margin-top:8px">Você pode escolher qualquer ficha. A escolha vale somente para a data selecionada no calendário.</div>
+  <div class="picker-grid" id="pickerOptions"></div>
+  <div class="picker-footer"><span class="sub">A sugestão do calendário é opcional.</span><button class="btn ghost" onclick="closeWorkoutPicker()">Cancelar</button></div>
+ </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://gwrznlvsruglrbwwraxe.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_gupdmt3YXJit5y-EYvB3dw_ucJRkDJC";
+let cloudClient=null,cloudUser=null,cloudSyncAllowed=false,cloudBusy=false,cloudTimer=null,cloudInitializing=false;
+const LOCAL_EXISTED=!!(localStorage.getItem("lifelevel_v30")||localStorage.getItem("lifelevel_v20")||localStorage.getItem("lifelevel_v16")||localStorage.getItem("lifelevel_v15")||localStorage.getItem("lifelevel_v14")||localStorage.getItem("lifelevel_v13")||localStorage.getItem("lifelevel_v12")||localStorage.getItem("lifelevel_v11")||localStorage.getItem("lifelevel_v10")||localStorage.getItem("lifelevel_v09")||localStorage.getItem("lifelevel_v08"));
+const KEY='lifelevel_v30';const today=new Date();const iso=d=>{let x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};const shift=(s,n)=>{let d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return iso(d)};
+const base={xp:0,days:{},wealth:[{date:'2026-11-20',value:115335}],allocation:{fixed:58439,stocks:13340,fiis:8460,etfs:18110,cash:13916,crypto:3070},goals:[{id:1,name:'Meu apartamento em Campinas',cat:'Patrimônio',target:500000,current:0,unit:'R$'},{id:2,name:'Meu carro',cat:'Conquista',target:50000,current:0,unit:'R$'},{id:3,name:'PC Gamer',cat:'Conquista',target:12000,current:0,unit:'R$'},{id:4,name:'Chegar aos 90 kg',cat:'Saúde',target:90,current:110,unit:'kg'}],weight:[{date:'2026-11-20',value:110}],weightStart:110,targetWeight:90,history:[]};
+let data=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('lifelevel_v20')||localStorage.getItem('lifelevel_v16')||localStorage.getItem('lifelevel_v15')||localStorage.getItem('lifelevel_v14')||localStorage.getItem('lifelevel_v13')||localStorage.getItem('lifelevel_v12')||localStorage.getItem('lifelevel_v11')||localStorage.getItem('lifelevel_v10')||localStorage.getItem('lifelevel_v09')||localStorage.getItem('lifelevel_v08')||'null')||migrate();Object.entries(data.days||{}).forEach(([s,d])=>{if(new Date(s+'T12:00:00').getDay()===4&&d.workout==='rest'&&!d.workoutManuallyChosen)d.workout=null});
+Object.values(data.days||{}).forEach(d=>{if(d.water!==undefined&&!d.waterGoalSnapshot)d.waterGoalSnapshot=Number(data.waterGoal)||2500;});
+if(data.goals){const apt=data.goals.find(g=>g.id===1);if(apt){apt.name='Meu apartamento em Campinas';if(!Number(apt.target))apt.target=500000;}}
+let selected=iso(today),viewMonth=new Date(today.getFullYear(),today.getMonth(),1),modalMode='';
+function migrate(){let old={};try{old=JSON.parse(localStorage.getItem('lifelevel_v06')||localStorage.getItem('lifelevel_v08')||localStorage.getItem('lifelevel_v07')||localStorage.getItem('lifelevel_v06')||localStorage.getItem('lifelevel_v05')||localStorage.getItem('lifelevel_v04')||localStorage.getItem('lifelevel_v03')||localStorage.getItem('lifelevel_v02')||'{}')||{}}catch(e){}let n=structuredClone(base);if(old.days)n.days=old.days;if(old.history)n.history=old.history;if(old.wealth)n.wealth=old.wealth;if(old.weight||old.weights)n.weight=old.weight||old.weights;if(old.xp)n.xp=old.xp;if(old.goals)n.goals=old.goals.map(g=>({...g,cat:g.cat||g.category||'Pessoal'}));if(old.weightTarget)n.targetWeight=old.weightTarget;return n}
+const $=id=>document.getElementById(id),fmt=n=>Number(n||0).toLocaleString('pt-BR',{maximumFractionDigits:1}),brl=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const meals=[{id:'breakfast',name:'Café da manhã',time:'07:00',items:'3 ovos + 2 fatias de pão integral + 1 banana',kcal:420,protein:27},{id:'lunch',name:'Almoço',time:'12:00',items:'180 g de frango ou patinho + 150 g de arroz cozido + vegetais',kcal:650,protein:58},{id:'snack',name:'Lanche',time:'16:00',items:'Whey + 150 g de iogurte + 30 g de aveia + fruta',kcal:350,protein:35},{id:'dinner',name:'Jantar',time:'19:30',items:'180 g de frango, patinho ou peixe + 100 g de arroz ou 200 g de batata + vegetais',kcal:580,protein:55}];
+const workouts={
+ upperA:{name:'Upper A',desc:'Peito, costas, ombros e braços',ex:[['Supino máquina','3 × 8–12'],['Supino inclinado com halteres','3 × 8–12'],['Puxada alta neutra','3 × 8–12'],['Remada baixa','3 × 8–12'],['Elevação lateral','2 × 12–15'],['Tríceps corda','2 × 10–15'],['Rosca direta','2 × 10–15']]},
+ lowerA:{name:'Lower A',desc:'Quadríceps e panturrilhas',ex:[['Leg press','3 × 8–12'],['Hack squat','3 × 8–12'],['Cadeira extensora','2 × 12–15'],['Mesa flexora','3 × 10–15'],['Panturrilha no aparelho','3 × 12–15'],['Abdominal máquina','2 × 12–15']]},
+ upperB:{name:'Upper B',desc:'Costas, peito, ombros e braços',ex:[['Supino inclinado máquina','3 × 8–12'],['Remada articulada com apoio','3 × 8–12'],['Puxada alta','3 × 8–12'],['Desenvolvimento máquina','2 × 8–12'],['Crucifixo no cabo','2 × 12–15'],['Crucifixo inverso máquina','2 × 12–15'],['Rosca martelo','2 × 10–12'],['Tríceps na polia','2 × 10–15']]},
+ lowerB:{name:'Lower B',desc:'Posteriores, glúteos e quadríceps',ex:[['Agachamento no Smith','3 × 8–12'],['Mesa flexora','3 × 10–15'],['Elevação pélvica máquina','3 × 8–12'],['Cadeira extensora','2 × 12–15'],['Cadeira abdutora','2 × 12–20'],['Panturrilha sentado','3 × 12–15'],['Abdominal máquina','2 × 12–15']]},
+ rest:{name:'Recuperação',desc:'Descanso, mobilidade ou caminhada leve',ex:[]}
+};
+// Training Season 01: Monday Lower A, Tuesday Upper A, Wednesday football, Thursday Upper B, Saturday Lower B.
+const SEASON_START='2026-12-09',SEASON_END='2027-02-02',SEASON_REVIEW='2027-02-03';
+const schedule={0:'rest',1:'lowerA',2:'upperA',3:'rest',4:'upperB',5:'rest',6:'lowerB'};
+function rec(s){if(s<SEASON_START||s>SEASON_END)return 'rest';return schedule[new Date(s+'T12:00:00').getDay()]}
+let modeExercise=0,modeTimer=null,modeSeconds=0;
+function day(s=selected){
+ if(!data.days[s])data.days[s]={meal:{},mealLog:{},workout:null,sets:{},loads:{},activity:{}};
+ const d=data.days[s],legacy={push:'upperA',pull:'upperB',legs:'lowerA',upper:'upperA',lower:'lowerB',full:'upperA'};
+ if(d.workout&&!workouts[d.workout]){d.workout=legacy[d.workout]||null;d.sets={};d.loads={};}
+ return d;
+}
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
+ render();
+ if(cloudUser&&cloudSyncAllowed)scheduleCloudSave();
+}
+function setSyncStatus(message){const el=$("syncStatus");if(el)el.textContent=message}
+function scheduleCloudSave(){
+ clearTimeout(cloudTimer);
+ setSyncStatus("● Salvando na nuvem…");
+ cloudTimer=setTimeout(syncLifeLevelNow,900);
+}
+async function syncLifeLevelNow(){
+ if(!cloudClient||!cloudUser||!cloudSyncAllowed)return;
+ if(cloudBusy)return;
+ cloudBusy=true;setSyncStatus("● Sincronizando…");
+ try{
+  const payload={user_id:cloudUser.id,data:data,updated_at:new Date().toISOString()};
+  const {error}=await cloudClient.from("life_level_state").upsert(payload,{onConflict:"user_id"});
+  if(error)throw error;
+  setSyncStatus("● Sincronizado");
+ }catch(err){
+  console.error("LIFE LEVEL cloud sync:",err);
+  setSyncStatus("● Erro de sincronização");
+  toast("Não foi possível sincronizar. Seus dados continuam salvos neste dispositivo.");
+ }finally{cloudBusy=false}
+}
+function openAuth(){
+ $("authback").classList.add("show");
+ $("signedInArea").style.display=cloudUser?"block":"none";
+ if(cloudUser){$("signedInEmail").textContent="Conectado como "+(cloudUser.email||"");$("authMessage").textContent="Sua conta está conectada ao LIFE LEVEL."}
+}
+function closeAuth(){$("authback").classList.remove("show")}
+function authMessage(t){$("authMessage").textContent=t}
+async function signUpLifeLevel(){
+ if(!cloudClient)return authMessage("Biblioteca Supabase não carregada. Verifique sua conexão e recarregue a página.");
+ const email=$("authEmail").value.trim(),password=$("authPassword").value;
+ if(!email||password.length<6)return authMessage("Informe um e-mail válido e uma senha com pelo menos 6 caracteres.");
+ authMessage("Criando sua conta…");
+ const {data:res,error}=await cloudClient.auth.signUp({email,password});
+ if(error)return authMessage(error.message);
+ if(res.session){cloudUser=res.user;await initializeCloudSync();$("authButton").textContent="Conta conectada";openAuth();return}
+ authMessage("Conta criada! Confira seu e-mail para confirmar o cadastro. Depois volte aqui e entre.");
+}
+async function signInLifeLevel(){
+ if(!cloudClient)return authMessage("Biblioteca Supabase não carregada. Verifique sua conexão e recarregue a página.");
+ const email=$("authEmail").value.trim(),password=$("authPassword").value;
+ if(!email||!password)return authMessage("Informe seu e-mail e sua senha.");
+ authMessage("Entrando…");
+ const {data:res,error}=await cloudClient.auth.signInWithPassword({email,password});
+ if(error)return authMessage(error.message);
+ cloudUser=res.user;await initializeCloudSync();$("authButton").textContent="Conta conectada";openAuth();
+}
+async function signOutLifeLevel(){
+ if(!cloudClient)return;
+ await cloudClient.auth.signOut();cloudUser=null;cloudSyncAllowed=false;
+ setSyncStatus("● Somente neste dispositivo");
+ $("authButton").textContent="Entrar / Sincronizar";
+ $("signedInArea").style.display="none";authMessage("Você saiu. Os dados locais continuam neste navegador.");
+}
+async function manualSyncLifeLevel(){
+ if(!cloudClient||!cloudUser)return;
+ if(!cloudSyncAllowed){
+  if(!confirm("Enviar os dados deste navegador para sua conta LIFE LEVEL na nuvem? Os dados da nuvem serão substituídos."))return;
+  cloudSyncAllowed=true;
+ }
+ await syncLifeLevelNow();
+}
+async function initializeCloudSync(){
+ if(!cloudClient||!cloudUser||cloudInitializing)return;
+ cloudInitializing=true;
+ setSyncStatus("● Verificando nuvem…");
+ try{
+  const {data:remote,error}=await cloudClient.from("life_level_state").select("data,updated_at").eq("user_id",cloudUser.id).maybeSingle();
+  if(error)throw error;
+  if(remote&&remote.data){
+   if(LOCAL_EXISTED){
+    const useLocal=confirm("Encontramos dados neste navegador e também na nuvem. OK = enviar os dados deste dispositivo para a nuvem. Cancelar = escolher outra opção.");
+    if(useLocal){
+     cloudSyncAllowed=true;await syncLifeLevelNow();
+    }else{
+     const useCloud=confirm("Deseja substituir os dados deste navegador pelos dados que estão na nuvem? Esta ação substitui os dados locais atuais.");
+     if(useCloud){
+      data=remote.data;localStorage.setItem(KEY,JSON.stringify(data));cloudSyncAllowed=true;render();setSyncStatus("● Sincronizado");
+     }else{
+      cloudSyncAllowed=false;setSyncStatus("● Conectado · sync pausado");
+      authMessage("Conta conectada, mas sincronização pausada para evitar sobrescrever dados. Use Sincronizar agora depois de decidir.");
+     }
+    }
+   }else{
+    data=remote.data;localStorage.setItem(KEY,JSON.stringify(data));cloudSyncAllowed=true;render();setSyncStatus("● Sincronizado");
+   }
+  }else{
+   cloudSyncAllowed=true;await syncLifeLevelNow();
+  }
+  $("authButton").textContent="Conta conectada";
+  $("signedInArea").style.display="block";$("signedInEmail").textContent="Conectado como "+(cloudUser.email||"");
+ }catch(err){
+  console.error("LIFE LEVEL cloud init:",err);
+  cloudSyncAllowed=false;setSyncStatus("● Falha na conexão");
+  authMessage("Não foi possível acessar a tabela. Confira se a tabela life_level_state e as políticas RLS foram criadas. Detalhe: "+err.message);
+ }finally{cloudInitializing=false}
+}
+async function bootCloud(){
+ try{
+  if(!window.supabase?.createClient){setSyncStatus("● Cloud indisponível");return}
+  cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  const {data:{session}}=await cloudClient.auth.getSession();
+  if(session){cloudUser=session.user;await initializeCloudSync()}
+  cloudClient.auth.onAuthStateChange((_event,session)=>{
+   if(session){cloudUser=session.user;setTimeout(()=>initializeCloudSync(),0)}
+   else if(cloudUser){cloudUser=null;cloudSyncAllowed=false;setSyncStatus("● Somente neste dispositivo")}
+  });
+ }catch(err){console.error(err);setSyncStatus("● Cloud indisponível")}
+}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));$('crumb').textContent='Seu espaço / '+({home:'Meu dia',calendar:'Calendário',nutrition:'Nutrição',training:'Treinamento',finance:'Patrimônio',goals:'Metas',achievements:'Conquistas',history:'Meu histórico'}[id]);if(id==='calendar')renderCalendar();if(id==='achievements')renderAchievements();if(id==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+function workoutFor(s){let d=day(s),key=d.workout||rec(s);return key==='rest'?null:workouts[key]}
+function completion(s){let d=day(s),mealDone=meals.filter(m=>d.meal[m.id]).length;let wk=d.workout||rec(s),setsTotal=wk==='rest'?0:workouts[wk].ex.reduce((a,e,i)=>a+Number(e[1].split(' ')[0]),0),setsDone=Object.values(d.sets).filter(Boolean).length;let waterDone=(Number(d.water)||0)>=(Number(d.waterGoalSnapshot)||Number(data.waterGoal)||2500)?1:0;let total=meals.length+setsTotal+1,done=mealDone+setsDone+waterDone;return {mealDone,setsDone,setsTotal,waterDone,total,done,pct:total?Math.round(done/total*100):0}}
+function xpAward(s,key){let d=day(s);if(!d.awarded)d.awarded={};if(!d.awarded[key]){d.awarded[key]=true;data.xp+=10;toast('+10 XP · Consistência registrada')} }
+function toggleMeal(s,id,checked){let d=day(s);d.meal[id]=checked;d.mealLog=d.mealLog||{};if(checked)d.mealLog[id]={type:'planned',name:(meals.find(m=>m.id===id)||{}).items||'',kcal:(meals.find(m=>m.id===id)||{}).kcal||0,protein:(meals.find(m=>m.id===id)||{}).protein||0};else delete d.mealLog[id];if(checked)xpAward(s,'meal-'+id);save()}
+function toggleSet(s,ex,i,checked){
+ let d=day(s),key=ex+'-'+i;
+ d.sets[key]=checked;
+ if(checked)xpAward(s,'set-'+key);
+ else if(d.awarded?.['set-'+key]){delete d.awarded['set-'+key];data.xp=Math.max(0,data.xp-10)}
+ save();
+}
+
+function openWorkoutPicker(){
+ const current=day(selected).workout||rec(selected),recommended=rec(selected);
+ $('pickerDate').textContent='Escolhendo para '+new Date(selected+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+ const options=[
+  ['upperA','Upper A','Peito, costas, ombros e braços','💪'],
+  ['lowerA','Lower A','Quadríceps e panturrilhas','🦵'],
+  ['upperB','Upper B','Costas, peito, ombros e braços','🏋️'],
+  ['lowerB','Lower B','Posteriores, glúteos e quadríceps','🦿'],
+  ['rest','Recuperação','Descanso, mobilidade ou caminhada','🌿']
+ ];
+ $('pickerOptions').innerHTML=options.map(([id,name,desc,emoji])=>{
+  const isCurrent=id===current,isRecommended=id===recommended;
+  return `<button class="picker-option ${isCurrent?'selected':''} ${isRecommended?'recommended':''}" onclick="selectWorkout('${id}')"><span class="between"><b>${emoji} ${name}</b><em>${isCurrent?'✓ ESCOLHIDO':isRecommended?'SUGERIDO':''}</em></span><small>${desc}</small></button>`;
+ }).join('');
+ $('workoutPicker').classList.add('show');
+}
+function closeWorkoutPicker(){$('workoutPicker').classList.remove('show')}
+function selectWorkout(k){
+ let d=day(selected),previous=d.workout||rec(selected);
+ if(previous!==k){
+  d.workout=k;d.workoutManuallyChosen=true;
+  d.sets={};
+  d.loads={};
+  d.awarded=Object.fromEntries(Object.entries(d.awarded||{}).filter(([x])=>!x.startsWith('set-')));
+ }
+ closeWorkoutPicker();
+ save();
+ toast(k==='rest'?'Dia alterado para recuperação':'Treino escolhido: '+workouts[k].name);
+}
+function toggleWorkoutOptions(){$('workoutOptions').classList.toggle('open')}
+function focusExercises(){$('exerciseList').scrollIntoView({behavior:'smooth',block:'start'})}
+const ACHIEVEMENTS=[
+ // Patrimônio
+ {id:'wealth10',name:'Primeiros 10 mil',desc:'Acumular R$ 10 mil de patrimônio',icon:'🪙',xp:100,rarity:'Comum',test:s=>s.wealth>=10000},
+ {id:'wealth25',name:'Construindo a base',desc:'Alcançar R$ 25 mil de patrimônio',icon:'🐣',xp:120,rarity:'Comum',test:s=>s.wealth>=25000},
+ {id:'wealth50',name:'Meio caminho dos seis dígitos',desc:'Alcançar R$ 50 mil',icon:'💰',xp:150,rarity:'Incomum',test:s=>s.wealth>=50000},
+ {id:'wealth75',name:'Reta dos seis dígitos',desc:'Alcançar R$ 75 mil',icon:'🧱',xp:200,rarity:'Incomum',test:s=>s.wealth>=75000},
+ {id:'wealth100',name:'Seis dígitos',desc:'Alcançar R$ 100 mil',icon:'🏦',xp:300,rarity:'Rara',test:s=>s.wealth>=100000},
+ {id:'wealth150',name:'Patrimônio em expansão',desc:'Alcançar R$ 150 mil',icon:'📈',xp:300,rarity:'Rara',test:s=>s.wealth>=150000},
+ {id:'wealth200',name:'Duzentos mil',desc:'Alcançar R$ 200 mil',icon:'💠',xp:400,rarity:'Rara',test:s=>s.wealth>=200000},
+ {id:'wealth250',name:'Um quarto de milhão',desc:'Alcançar R$ 250 mil',icon:'💎',xp:500,rarity:'Épica',test:s=>s.wealth>=250000},
+ {id:'wealth350',name:'Patrimônio de respeito',desc:'Alcançar R$ 350 mil',icon:'🏛️',xp:650,rarity:'Épica',test:s=>s.wealth>=350000},
+ {id:'wealth500',name:'Meio milhão',desc:'Alcançar R$ 500 mil',icon:'👑',xp:1000,rarity:'Lendária',test:s=>s.wealth>=500000},
+ {id:'wealth750',name:'Rumo ao milhão',desc:'Alcançar R$ 750 mil',icon:'🚀',xp:1200,rarity:'Lendária',test:s=>s.wealth>=750000},
+ {id:'wealth1000',name:'Clube do milhão',desc:'Alcançar R$ 1 milhão',icon:'🏆',xp:2000,rarity:'Lendária',test:s=>s.wealth>=1000000},
+ // Treinamento
+ {id:'workout1',name:'Primeiro passo',desc:'Registrar seu primeiro treino',icon:'🏋️',xp:50,rarity:'Comum',test:s=>s.workouts>=1},
+ {id:'workout5',name:'Pegando o ritmo',desc:'Registrar 5 dias de treino',icon:'👟',xp:75,rarity:'Comum',test:s=>s.workouts>=5},
+ {id:'workout10',name:'Em ritmo',desc:'Registrar 10 dias de treino',icon:'💪',xp:100,rarity:'Incomum',test:s=>s.workouts>=10},
+ {id:'workout25',name:'Compromisso firmado',desc:'Registrar 25 dias de treino',icon:'🎽',xp:175,rarity:'Incomum',test:s=>s.workouts>=25},
+ {id:'workout50',name:'Disciplina',desc:'Registrar 50 dias de treino',icon:'🔥',xp:250,rarity:'Rara',test:s=>s.workouts>=50},
+ {id:'workout75',name:'Casca grossa',desc:'Registrar 75 dias de treino',icon:'🛡️',xp:350,rarity:'Rara',test:s=>s.workouts>=75},
+ {id:'workout100',name:'Máquina de consistência',desc:'Registrar 100 dias de treino',icon:'⚔️',xp:500,rarity:'Épica',test:s=>s.workouts>=100},
+ {id:'workout150',name:'Imparável',desc:'Registrar 150 dias de treino',icon:'🌋',xp:700,rarity:'Épica',test:s=>s.workouts>=150},
+ {id:'workout200',name:'Lenda do ferro',desc:'Registrar 200 dias de treino',icon:'🏅',xp:1000,rarity:'Lendária',test:s=>s.workouts>=200},
+ // Evolução do peso
+ {id:'weight108',name:'Primeira virada',desc:'Registrar 108 kg ou menos',icon:'⚖️',xp:75,rarity:'Comum',test:s=>s.lowestWeight<=108},
+ {id:'weight105',name:'Primeiros quilos',desc:'Registrar 105 kg ou menos',icon:'📉',xp:100,rarity:'Incomum',test:s=>s.lowestWeight<=105},
+ {id:'weight102',name:'Ritmo consistente',desc:'Registrar 102 kg ou menos',icon:'🎯',xp:150,rarity:'Incomum',test:s=>s.lowestWeight<=102},
+ {id:'weight100',name:'Dois dígitos',desc:'Atingir 100 kg ou menos',icon:'💯',xp:250,rarity:'Rara',test:s=>s.lowestWeight<=100},
+ {id:'weight97',name:'Nova marca',desc:'Registrar 97 kg ou menos',icon:'🥇',xp:250,rarity:'Rara',test:s=>s.lowestWeight<=97},
+ {id:'weight95',name:'Cada vez mais perto',desc:'Atingir 95 kg ou menos',icon:'🏃',xp:300,rarity:'Rara',test:s=>s.lowestWeight<=95},
+ {id:'weight92',name:'Na reta final',desc:'Registrar 92 kg ou menos',icon:'🚴',xp:400,rarity:'Épica',test:s=>s.lowestWeight<=92},
+ {id:'weight90',name:'Meta dos 90 kg',desc:'Alcançar 90 kg ou menos',icon:'🏆',xp:1000,rarity:'Lendária',test:s=>s.lowestWeight<=90},
+ // Metas de vida
+ {id:'goal1',name:'Primeira grande conquista',desc:'Concretizar uma meta de vida',icon:'🌟',xp:250,rarity:'Rara',test:s=>s.goals>=1},
+ {id:'goal2',name:'Duas realizações',desc:'Concretizar duas metas de vida',icon:'✨',xp:350,rarity:'Épica',test:s=>s.goals>=2},
+ {id:'goal3',name:'Sonhos realizados',desc:'Concretizar três metas de vida',icon:'🎖️',xp:500,rarity:'Épica',test:s=>s.goals>=3},
+ {id:'goal5',name:'Uma vida de conquistas',desc:'Concretizar cinco metas de vida',icon:'👑',xp:1000,rarity:'Lendária',test:s=>s.goals>=5},
+ // Nutrição
+ {id:'nutrition3',name:'Começando bem',desc:'Completar a alimentação em 3 dias',icon:'🥑',xp:75,rarity:'Comum',test:s=>s.fullMealDays>=3},
+ {id:'nutrition7',name:'Rotina saudável',desc:'Completar a alimentação em 7 dias',icon:'🥗',xp:150,rarity:'Incomum',test:s=>s.fullMealDays>=7},
+ {id:'nutrition14',name:'Duas semanas no plano',desc:'Completar a alimentação em 14 dias',icon:'🍎',xp:225,rarity:'Rara',test:s=>s.fullMealDays>=14},
+ {id:'nutrition30',name:'Consistência alimentar',desc:'Completar a alimentação em 30 dias',icon:'🥇',xp:400,rarity:'Épica',test:s=>s.fullMealDays>=30},
+ {id:'nutrition60',name:'Alimentação consolidada',desc:'Completar a alimentação em 60 dias',icon:'🥦',xp:650,rarity:'Épica',test:s=>s.fullMealDays>=60},
+ {id:'nutrition100',name:'Mestre da rotina',desc:'Completar a alimentação em 100 dias',icon:'🌿',xp:1000,rarity:'Lendária',test:s=>s.fullMealDays>=100},
+ // Hidratação
+ {id:'water1',name:'Primeiro copo',desc:'Atingir sua meta de água em um dia',icon:'💧',xp:50,rarity:'Comum',test:s=>s.waterGoalDays>=1},
+ {id:'water7',name:'Hidratação em dia',desc:'Atingir a meta de água em 7 dias',icon:'🚰',xp:125,rarity:'Incomum',test:s=>s.waterGoalDays>=7},
+ {id:'water14',name:'Fluxo constante',desc:'Atingir a meta de água em 14 dias',icon:'🌊',xp:200,rarity:'Rara',test:s=>s.waterGoalDays>=14},
+ {id:'water30',name:'Fonte de consistência',desc:'Atingir a meta de água em 30 dias',icon:'🫧',xp:350,rarity:'Épica',test:s=>s.waterGoalDays>=30},
+ {id:'waterstreak3',name:'Três dias no ritmo',desc:'Bater a meta por 3 dias consecutivos',icon:'💦',xp:100,rarity:'Incomum',test:s=>s.bestWaterStreak>=3},
+ {id:'waterstreak7',name:'Uma semana hidratado',desc:'Bater a meta por 7 dias consecutivos',icon:'🏅',xp:300,rarity:'Épica',test:s=>s.bestWaterStreak>=7},
+ {id:'water50',name:'Hábito consolidado',desc:'Atingir sua meta de água em 50 dias',icon:'🚿',xp:450,rarity:'Épica',test:s=>s.waterGoalDays>=50},
+ {id:'water75',name:'Ritmo de excelência',desc:'Atingir sua meta de água em 75 dias',icon:'🌧️',xp:600,rarity:'Épica',test:s=>s.waterGoalDays>=75},
+ {id:'water100',name:'Cem dias de cuidado',desc:'Atingir sua meta de água em 100 dias',icon:'🌊',xp:800,rarity:'Lendária',test:s=>s.waterGoalDays>=100},
+ {id:'water180',name:'Hidratação de elite',desc:'Atingir sua meta de água em 180 dias',icon:'🐬',xp:1200,rarity:'Lendária',test:s=>s.waterGoalDays>=180},
+ {id:'water365',name:'Um ano em equilíbrio',desc:'Atingir sua meta de água em 365 dias',icon:'🏆',xp:2500,rarity:'Lendária',test:s=>s.waterGoalDays>=365},
+ {id:'waterstreak14',name:'Duas semanas constantes',desc:'Bater a meta por 14 dias consecutivos',icon:'💎',xp:500,rarity:'Épica',test:s=>s.bestWaterStreak>=14},
+ {id:'waterstreak30',name:'Um mês sem quebrar o ritmo',desc:'Bater a meta por 30 dias consecutivos',icon:'👑',xp:1000,rarity:'Lendária',test:s=>s.bestWaterStreak>=30},
+ {id:'waterstreak60',name:'Constância extraordinária',desc:'Bater a meta por 60 dias consecutivos',icon:'🌟',xp:1600,rarity:'Lendária',test:s=>s.bestWaterStreak>=60},
+ {id:'waterstreak100',name:'Lenda da hidratação',desc:'Bater a meta por 100 dias consecutivos',icon:'🏆',xp:2500,rarity:'Lendária',test:s=>s.bestWaterStreak>=100}
+];
+function achievementStats(){
+ const wealth=Object.values(data.allocation||{}).reduce((a,v)=>a+Number(v||0),0);
+ const days=Object.entries(data.days||{});
+ const legacySessions=days.filter(([s,d])=>{const k=d.workout||rec(s);if(!k||k==='rest')return false;const total=workouts[k].ex.reduce((a,e)=>a+Number(e[1].split(' ')[0]),0);return Object.values(d.sets||{}).filter(Boolean).length>=Math.ceil(total*.8)});
+ const workoutsCount=Math.max((data.workoutSessions||[]).length,legacySessions.length);
+ const weights=(data.weight||[]).map(x=>Number(x.value)).filter(Number.isFinite);
+ const fullMealDays=days.filter(([s,d])=>meals.every(m=>!!d.meal?.[m.id])).length;
+ const waterGoalDays=days.filter(([s,d])=>(Number(d.water)||0)>=(Number(d.waterGoalSnapshot)||Number(data.waterGoal)||2500)).length;
+ const waterDates=days.filter(([s,d])=>(Number(d.water)||0)>=(Number(d.waterGoalSnapshot)||Number(data.waterGoal)||2500)).map(([s])=>s).sort();
+ let waterStreak=0,bestWaterStreak=0,prevDate=null;
+ waterDates.forEach(s=>{const dt=new Date(s+'T12:00:00');const consecutive=prevDate&&Math.round((dt-new Date(prevDate+'T12:00:00'))/86400000)===1;waterStreak=consecutive?waterStreak+1:1;bestWaterStreak=Math.max(bestWaterStreak,waterStreak);prevDate=s;});
+ return {wealth,workouts:workoutsCount,lowestWeight:weights.length?Math.min(...weights):Infinity,goals:(data.goals||[]).filter(g=>g.completed).length,fullMealDays,waterGoalDays,bestWaterStreak};
+}
+let achievementQueue=[],achievementPopupOpen=false;
+function showAchievementPopup(a){
+ $('achievementPopIcon').textContent=a.icon;
+ $('achievementPopName').textContent=a.name;
+ $('achievementPopDesc').textContent=a.desc;
+ $('achievementPopRarity').textContent=a.rarity;
+ $('achievementPopRarity').style.borderColor=({Comum:'#91a3b7',Incomum:'#63d9aa',Rara:'#84b5ff',Épica:'#c2a5ff',Lendária:'#f1c979'})[a.rarity]||'#63d9aa';
+ $('achievementPopXP').textContent='+'+a.xp+' XP';
+ $('achievementPop').classList.add('show');
+ achievementPopupOpen=true;
+}
+function closeAchievementPopup(){
+ $('achievementPop').classList.remove('show');
+ achievementPopupOpen=false;
+ if(achievementQueue.length)setTimeout(()=>showAchievementPopup(achievementQueue.shift()),260);
+}
+function checkAchievements(){
+ data.achievements=data.achievements||{};
+ const stats=achievementStats();let newly=[];
+ ACHIEVEMENTS.forEach(a=>{if(!data.achievements[a.id]&&a.test(stats)){data.achievements[a.id]={date:iso(today),xp:a.xp};data.xp=(data.xp||0)+a.xp;newly.push(a)}});
+ if(newly.length){
+  localStorage.setItem(KEY,JSON.stringify(data));
+  achievementQueue.push(...newly);
+  if(!achievementPopupOpen)setTimeout(()=>{if(!achievementPopupOpen&&achievementQueue.length)showAchievementPopup(achievementQueue.shift())},350);
+ }
+}
+function renderAchievements(){
+ const unlocked=data.achievements||{},count=ACHIEVEMENTS.filter(a=>unlocked[a.id]).length;
+ $('achievementCount').textContent=count+'/'+ACHIEVEMENTS.length;
+ $('achievementXP').textContent=ACHIEVEMENTS.filter(a=>unlocked[a.id]).reduce((s,a)=>s+a.xp,0);
+ $('achievementGrid').innerHTML=ACHIEVEMENTS.map(a=>{
+  const u=unlocked[a.id],rarityColor=({Comum:'#91a3b7',Incomum:'#63d9aa',Rara:'#84b5ff',Épica:'#c2a5ff',Lendária:'#f1c979'})[a.rarity];
+  return `<div class="card" style="padding:13px;${u?'border-color:'+rarityColor:'opacity:.58'}"><div class="between"><span style="font-size:27px;filter:${u?'none':'grayscale(1)'}">${u?a.icon:'🔒'}</span><span class="tag" style="color:${rarityColor}">${a.rarity}</span></div><b style="display:block;margin-top:8px">${a.name}</b><div class="sub" style="min-height:32px;margin-top:3px">${a.desc}</div><div class="between" style="margin-top:9px"><span class="sub">${u?'Desbloqueada':'Bloqueada'}</span><b style="color:${rarityColor}">+${a.xp} XP</b></div>${u?`<div class="sub" style="margin-top:4px">Em ${new Date(unlocked[a.id].date+'T12:00:00').toLocaleDateString('pt-BR')}</div>`:''}</div>`
+ }).join('');
+}
+function render(){checkAchievements();let lv=Math.floor(data.xp/500)+1,pr=data.xp%500;$('level').textContent=String(lv).padStart(2,'0');$('sidelevel').textContent=String(lv).padStart(2,'0');$('sidexp').textContent=data.xp+' XP acumulados';$('xpbar').style.width=pr/500*100+'%';$('xptext').textContent=pr+' / 500 XP';$('rank').textContent=lv<3?'INICIANTE':lv<6?'EM EVOLUÇÃO':'ELITE';let d=day(selected),c=completion(selected),dt=new Date(selected+'T12:00:00');$('daylabel').textContent=dt.toLocaleDateString('pt-BR',{weekday:'long'}).toUpperCase();$('daytitle').textContent=selected===iso(today)?'Seu plano de hoje':dt.toLocaleDateString('pt-BR',{day:'numeric',month:'long'});$('daypercent').textContent=c.pct+'%';$('daybar').style.width=c.pct+'%';$('mealcount').textContent=c.mealDone+'/4';$('nutritiondone').textContent=c.mealDone+'/4';$('todaymeals').innerHTML=meals.map(m=>`<label class="meal ${d.meal[m.id]?'done':''}"><input class="tick" type="checkbox" ${d.meal[m.id]?'checked':''} onchange="toggleMeal('${selected}','${m.id}',this.checked)"><span style="flex:1"><b>${m.name}</b><small>${m.time} · ${m.items}</small></span><span class="mealright">${m.kcal} kcal</span></label>`).join('');let wk=d.workout||rec(selected),suggested=rec(selected);$('workoutsubtitle').textContent=d.workout&&d.workout!==suggested?'Você escolheu livremente · sugestão: '+(suggested==='rest'?'Descanso':workouts[suggested].name):'Sugestão do calendário · você pode trocar quando quiser';$('todayworkout').innerHTML=wk==='rest'?(new Date(selected+'T12:00:00').getDay()===3?'<div class="between"><div><b>⚽ Quarta de futebol</b><div class="sub">Dia reservado ao futebol. Sem musculação.</div></div><span class="tag">FUTEBOL</span></div>':'<div class="between"><div><b>🌿 Dia de recuperação</b><div class="sub">Descanso, mobilidade ou caminhada leve.</div></div><span class="tag">RECUPERAÇÃO</span></div>'):`<div class="between"><div><b>${workouts[wk].name}</b><div class="sub">${workouts[wk].desc}</div></div><span class="tag">${completion(selected).setsDone}/${completion(selected).setsTotal} séries</span></div><div class="sub" style="margin-top:8px">${workouts[wk].ex.slice(0,3).map(x=>x[0]).join(' · ')}${workouts[wk].ex.length>3?' e mais':''}</div>`;
+$('upcoming').innerHTML=[0,1,2].map(i=>{let s=shift(selected,i),k=rec(s),w=k==='rest'?'Recuperação':workouts[k].name;return `<div class="daytask"><b>${new Date(s+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'})}</b><small>${w} · ${completion(s).mealDone}/4 refeições registradas</small></div>`}).join('');$('totalxp').textContent=data.xp;$('activedays').textContent=Object.values(data.days).filter(x=>Object.keys(x.meal||{}).some(k=>x.meal[k])||Object.values(x.sets||{}).some(Boolean)).length;
+renderNutrition();renderWeeklyReview();renderWaterTracker();renderTraining();renderFinance();renderWeight();renderGoals();renderCalendar();if(document.getElementById('achievements'))renderAchievements();if(document.getElementById('history'))renderHistory();
+}
+
+function nutritionEntry(s,m){
+ const d=day(s);d.mealLog=d.mealLog||{};
+ const log=d.mealLog[m.id];
+ if(log)return log;
+ return d.meal[m.id]?{type:'planned',name:m.items,kcal:m.kcal,protein:m.protein||0}:{type:'pending',name:'',kcal:0,protein:0};
+}
+
+// Estimador local aproximado: valores médios por 100 g, unidade ou porção padrão.
+// Não depende de internet; quando não reconhece um alimento, informa a limitação.
+const FOOD_DB=[
+ {n:'arroz cozido',a:['arroz branco','arroz cozido','arroz'],k:130,p:2.7,u:'g',d:150},
+ {n:'feijão cozido',a:['feijao','feijão'],k:76,p:4.8,u:'g',d:100},
+ {n:'frango grelhado',a:['peito de frango','frango grelhado','frango'],k:165,p:31,u:'g',d:150},
+ {n:'carne bovina magra',a:['patinho','carne bovina','bife','carne'],k:190,p:27,u:'g',d:150},
+ {n:'ovo',a:['ovos','ovo'],k:72,p:6.3,u:'unit',d:1},
+ {n:'pão francês',a:['pao frances','pão francês','paozinho'],k:140,p:4.5,u:'unit',d:1},
+ {n:'pão integral',a:['pao integral','pão integral'],k:250,p:10,u:'g',d:50},
+ {n:'queijo muçarela',a:['mussarela','muçarela','queijo'],k:300,p:22,u:'g',d:30},
+ {n:'presunto',a:['presunto'],k:145,p:20,u:'g',d:30},
+ {n:'banana',a:['banana'],k:89,p:1.1,u:'unit',d:1},
+ {n:'maçã',a:['maca','maçã'],k:80,p:0.4,u:'unit',d:1},
+ {n:'batata frita',a:['batata frita','fritas'],k:312,p:3.4,u:'g',d:120},
+ {n:'batata cozida',a:['batata cozida','batata assada','batata'],k:87,p:1.9,u:'g',d:180},
+ {n:'hambúrguer',a:['hamburguer artesanal','hambúrguer artesanal','hamburguer','hambúrguer'],k:250,p:15,u:'g',d:180},
+ {n:'pizza',a:['fatia de pizza','pizza'],k:270,p:11,u:'unit',d:1},
+ {n:'coxinha',a:['coxinha'],k:290,p:9,u:'unit',d:1},
+ {n:'pastel',a:['pastel'],k:320,p:8,u:'unit',d:1},
+ {n:'salgado assado',a:['esfiha','empada','salgado assado'],k:280,p:9,u:'unit',d:1},
+ {n:'açaí',a:['acai','açaí'],k:110,p:1.5,u:'g',d:300},
+ {n:'sorvete',a:['sorvete'],k:207,p:3.5,u:'g',d:100},
+ {n:'chocolate',a:['chocolate'],k:535,p:7.5,u:'g',d:30},
+ {n:'refrigerante comum',a:['coca cola','coca-cola','refrigerante','guarana','guaraná'],k:42,p:0,u:'ml',d:350},
+ {n:'refrigerante zero',a:['coca zero','coca-cola zero','zero açúcar','zero acucar','refrigerante zero'],k:0.5,p:0,u:'ml',d:350},
+ {n:'suco',a:['suco natural','suco'],k:45,p:0.5,u:'ml',d:250},
+ {n:'leite',a:['leite integral','leite'],k:61,p:3.2,u:'ml',d:200},
+ {n:'iogurte',a:['iogurte natural','iogurte'],k:65,p:4,u:'g',d:170},
+ {n:'whey protein',a:['whey','proteina em po','proteína em pó'],k:400,p:80,u:'g',d:30},
+ {n:'aveia',a:['aveia'],k:389,p:16.9,u:'g',d:30},
+ {n:'macarrão cozido',a:['macarrao','macarrão','massa'],k:157,p:5.8,u:'g',d:180},
+ {n:'salada/vegetais',a:['salada','legumes','vegetais','alface','tomate','brocolis','brócolis'],k:35,p:2,u:'g',d:100},
+ {n:'peixe grelhado',a:['tilapia','tilápia','peixe','salmao','salmão'],k:140,p:26,u:'g',d:150},
+ {n:'farofa',a:['farofa'],k:400,p:5,u:'g',d:30},
+ {n:'maionese',a:['maionese'],k:680,p:1,u:'g',d:20},
+ {n:'azeite',a:['azeite'],k:884,p:0,u:'ml',d:10}
+].filter(x=>Number.isFinite(x.k));
+function normalizeFoodText(t){
+ return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\s.,+-]/g,' ').replace(/\s+/g,' ').trim();
+}
+function estimateFoodDescription(description){
+ const text=normalizeFoodText(description);
+ let kcal=0,protein=0,found=[],unknown=[],remaining=text;
+ const db=[...FOOD_DB].sort((a,b)=>Math.max(...b.a.map(x=>normalizeFoodText(x).length))-Math.max(...a.a.map(x=>normalizeFoodText(x).length)));
+ db.forEach(food=>{
+  let aliases=food.a.map(normalizeFoodText).sort((a,b)=>b.length-a.length);
+  aliases.forEach(alias=>{
+   const escaped=alias.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+   const re=new RegExp('(^|\\b)(\\d+(?:[.,]\\d+)?)?\\s*(g|gr|gramas?|kg|ml|l|unidades?|un|fatias?|pedaços?|pedacos?)?\\s*'+escaped+'\\b','i');
+   const match=remaining.match(re);
+   if(!match)return;
+   let amount=match[2]?Number(match[2].replace(',','.')):food.d;
+   const unit=(match[3]||'').toLowerCase();
+   if(unit==='kg')amount*=1000;
+   if(unit==='l')amount*=1000;
+   if(['un','unidade','unidades','fatia','fatias','pedaço','pedaco','pedaços','pedacos'].includes(unit)) {
+    if(food.u==='unit')amount*=food.d;
+    else amount*=food.d;
+   }
+   let factor;
+   if(food.u==='unit')factor=amount/food.d;
+   else factor=amount/100;
+   const kk=Math.round(food.k*factor),pp=Math.round(food.p*factor*10)/10;
+   kcal+=kk;protein+=pp;
+   found.push({name:food.n,amount,unit:food.u,kcal:kk,protein:pp});
+   remaining=remaining.replace(match[0],' ');
+  });
+ });
+ const words=remaining.split(/\s+/).filter(w=>w.length>2&&!['com','sem','uma','uns','dos','das','que','para','mais','menos','g','ml'].includes(w));
+ if(words.length)unknown=[...new Set(words)];
+ return {kcal:Math.round(kcal),protein:Math.round(protein*10)/10,found,unknown,complete:found.length>0&&unknown.length===0};
+}
+function logSubstitution(s,id){
+ const m=meals.find(x=>x.id===id);if(!m)return;
+ const description=prompt('O que você comeu no lugar de '+m.name+'?\\n\\nExemplo: 1 hambúrguer artesanal, 120 g de batata frita e 1 lata de Coca-Cola.');
+ if(description===null||!description.trim())return;
+ const estimate=estimateFoodDescription(description);
+ if(!estimate.found.length){
+  const manual=prompt('Ainda não reconheço esses alimentos na minha base local. Informe uma estimativa de calorias (kcal):','');
+  if(manual===null)return;
+  const prot=prompt('Estimativa de proteína (g):','0');if(prot===null)return;
+  const d=day(s);d.mealLog=d.mealLog||{};d.mealLog[id]={type:'substitution',name:description.trim(),kcal:Math.max(0,Number(manual.replace(',','.'))||0),protein:Math.max(0,Number(prot.replace(',','.'))||0),estimateSource:'manual'};
+  d.meal[id]=true;save();return;
+ }
+ const details=estimate.found.map(x=>'• '+x.name+': '+x.kcal+' kcal / '+x.protein+' g proteína').join('\\n');
+ const warning=estimate.unknown.length?'\\n\\nNão consegui identificar: '+estimate.unknown.join(', ')+'. A estimativa considera apenas os itens reconhecidos.':'';
+ const message='Estimativa automática aproximada:\\n\\n'+details+'\\n\\nTOTAL: '+estimate.kcal+' kcal · '+estimate.protein+' g de proteína'+warning+'\\n\\nDeseja registrar?';
+ if(!confirm(message))return;
+ const d=day(s);d.mealLog=d.mealLog||{};d.mealLog[id]={type:'substitution',name:description.trim(),kcal:estimate.kcal,protein:estimate.protein,estimateSource:'local-database',estimateItems:estimate.found,hasUnknown:estimate.unknown.length>0};
+ d.meal[id]=true;save();toast('Estimativa registrada · '+estimate.kcal+' kcal');
+}
+
+function skipMeal(s,id){
+ const d=day(s);d.mealLog=d.mealLog||{};d.mealLog[id]={type:'skipped',name:'Refeição não realizada',kcal:0,protein:0};d.meal[id]=false;save();
+}
+function restorePlannedMeal(s,id){
+ const d=day(s);d.mealLog=d.mealLog||{};delete d.mealLog[id];d.meal[id]=true;save();
+}
+function nutritionTotals(s){
+ const d=day(s);let kcal=0,protein=0,done=0,planned=0,substitutions=0;
+ meals.forEach(m=>{const e=nutritionEntry(s,m);if(e.type==='planned'||e.type==='substitution'){kcal+=Number(e.kcal)||0;protein+=Number(e.protein)||0;done++;if(e.type==='planned')planned++;else substitutions++;}});
+ return {kcal,protein,done,planned,substitutions};
+}
+function weekRange(reference){
+ const d=new Date(reference+'T12:00:00'),dow=(d.getDay()+6)%7;
+ let monday=new Date(d);monday.setDate(d.getDate()-dow);
+ const sunday=new Date(monday);sunday.setDate(monday.getDate()+6);
+ return {start:iso(monday),end:iso(sunday)};
+}
+function weeklyReviewHTML(){
+ const now=new Date(),todayKey=iso(now);
+ const pendingEnd=localStorage.getItem('lifelevel_weekly_review_pending');
+ const isRelease=(now.getDay()===0&&now.getHours()>=20)||now.getDay()!==0;
+ if(!pendingEnd&&!isRelease)return '';
+ const reportEnd=pendingEnd||shift(todayKey, -(((now.getDay()+6)%7)+1));
+ const range=weekRange(reportEnd);
+ if(!pendingEnd)localStorage.setItem('lifelevel_weekly_review_pending',range.end);
+ const days=Array.from({length:7},(_,i)=>shift(range.start,i));
+ const mealsData=days.map(s=>nutritionTotals(s));
+ const kcalDays=mealsData.filter(x=>x.done>0);
+ const avgKcal=kcalDays.length?Math.round(kcalDays.reduce((a,x)=>a+x.kcal,0)/kcalDays.length):0;
+ const avgProtein=kcalDays.length?Math.round(kcalDays.reduce((a,x)=>a+x.protein,0)/kcalDays.length):0;
+ const workoutsDone=days.filter(s=>Object.values(day(s).sets||{}).some(Boolean)).length;
+ const mealEvents=mealsData.reduce((a,x)=>a+x.done,0),subCount=mealsData.reduce((a,x)=>a+x.substitutions,0);
+ const weighIns=(data.weight||[]).filter(w=>w.date>=range.start&&w.date<=range.end);
+ const weightTxt=weighIns.length?Number(weighIns[weighIns.length-1].value).toFixed(1).replace('.',',')+' kg':'Sem pesagem';
+ const wealthNow=Object.values(data.allocation||{}).reduce((a,b)=>a+Number(b||0),0);
+ const prev=(data.wealth||[]).filter(x=>x.date<range.start).slice(-1)[0];
+ const wealthChange=prev?wealthNow-Number(prev.value):null;
+ const label=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR');
+ return `<div class="weekly-review"><div class="between"><div><div class="kicker">WEEKLY REVIEW · RELATÓRIO AUTOMÁTICO</div><h3>Seu balanço da semana</h3><div class="sub">${label(range.start)} a ${label(range.end)}</div></div><span style="font-size:27px">📊</span></div><div class="weekly-grid"><div class="weekly-cell"><small>Dias com séries registradas</small><b>${workoutsDone}/4</b></div><div class="weekly-cell"><small>Refeições registradas</small><b>${mealEvents}/28</b></div><div class="weekly-cell"><small>Média calórica nos dias registrados</small><b>${avgKcal?avgKcal+' kcal':'—'}</b></div><div class="weekly-cell"><small>Proteína média estimada</small><b>${avgProtein?avgProtein+' g':'—'}</b></div><div class="weekly-cell"><small>Último peso registrado</small><b>${weightTxt}</b></div><div class="weekly-cell"><small>Substituições registradas</small><b>${subCount}</b></div></div><div class="sub" style="margin-top:11px">${wealthChange===null?'Patrimônio: registre snapshots para acompanhar a variação semanal.':'Variação vs. último snapshot anterior: '+(wealthChange>=0?'+':'')+'R$ '+fmt(wealthChange)}. Substituir refeições não zera sua semana: calorias e proteínas estimadas entram no balanço.</div><button class="btn" style="margin-top:12px;width:100%" onclick="dismissWeeklyReview()">Concluir revisão semanal</button></div>`;
+}
+
+function dismissWeeklyReview(){
+ localStorage.removeItem('lifelevel_weekly_review_pending');
+ renderWeeklyReview();
+ toast('Revisão semanal concluída');
+}
+function waterGoal(){return Math.max(250,Number(data.waterGoal)||2500)}
+function addWater(s,amount){
+ const d=day(s);d.waterGoalSnapshot=Number(d.waterGoalSnapshot)||waterGoal();d.water=Math.max(0,Number(d.water)||0)+amount;save();
+}
+function setWaterGoal(){
+ const raw=prompt('Qual sua meta diária de água em ml?',String(waterGoal()));
+ if(raw===null)return;
+ const n=Math.round(Number(raw.replace(',','.')));
+ if(!Number.isFinite(n)||n<250||n>10000){toast('Informe uma meta entre 250 e 10.000 ml');return;}
+ data.waterGoal=n;const d=day(selected);d.waterGoalSnapshot=n;save();
+}
+function waterTrackerHTML(s){
+ const consumed=Number(day(s).water)||0,goal=waterGoal(),pct=Math.min(100,Math.round(consumed/goal*100));
+ return `<div class="water-card"><div class="between"><div><div class="kicker">HIDRATAÇÃO</div><b style="font-size:16px">💧 Água de hoje</b></div><button class="btn ghost" onclick="setWaterGoal()">Meta ⚙</button></div><div class="between" style="margin-top:8px"><strong style="font-size:25px">${(consumed/1000).toFixed(2).replace('.',',')} L</strong><span class="sub">${(goal/1000).toFixed(2).replace('.',',')} L · ${pct}%</span></div><div class="water-bar"><div class="water-fill" style="width:${pct}%"></div></div><div class="water-actions"><button class="btn ghost" onclick="addWater('${s}',150)">+150 ml</button><button class="btn ghost" onclick="addWater('${s}',250)">+250 ml</button><button class="btn ghost" onclick="addWater('${s}',500)">+500 ml</button><button class="btn ghost" onclick="addWater('${s}',-250)">−250 ml</button></div><div class="sub" style="margin-top:8px">Registre cada copo ou garrafa. A meta inicial é ajustável; necessidades variam com clima, atividade e orientação profissional.</div></div>`;
+}
+function renderWeeklyReview(){
+ const markup=weeklyReviewHTML();
+ if($('weeklyReviewHome'))$('weeklyReviewHome').innerHTML=markup;
+ if($('weeklyReviewNutrition'))$('weeklyReviewNutrition').innerHTML=markup;
+}
+function renderWaterTracker(){
+ const markup=waterTrackerHTML(selected);
+ if($('waterTrackerHome'))$('waterTrackerHome').innerHTML=markup;
+ if($('waterTrackerNutrition'))$('waterTrackerNutrition').innerHTML=markup;
+}
+function renderNutrition(){
+ $('nutritiondate').textContent=new Date(selected+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+ $('allmeals').innerHTML=meals.map(m=>{const e=nutritionEntry(selected,m),isDone=e.type==='planned'||e.type==='substitution';const status=e.type==='planned'?'PLANO':e.type==='substitution'?'SUBSTITUÍDA':e.type==='skipped'?'PULADA':'PENDENTE';const cls=e.type==='planned'?'planned':e.type==='substitution'?'sub':e.type==='skipped'?'skip':'';return `<div class="meal-row"><div style="flex:1;min-width:0"><div class="between"><b>${m.time} · ${m.name}</b><span class="meal-status ${cls}">${status}</span></div><div class="sub">${e.type==='substitution'?e.name:e.type==='skipped'?'Não contabilizada':m.items}</div><div class="sub">${isDone?(Number(e.kcal)||0)+' kcal · '+(Number(e.protein)||0)+' g proteína':e.type==='skipped'?'0 kcal':'Plano: '+m.kcal+' kcal'}</div><div class="meal-actions">${e.type==='planned'?`<button class="btn ghost" onclick="logSubstitution('${selected}','${m.id}')">Substituir</button><button class="btn ghost" onclick="skipMeal('${selected}','${m.id}')">Pulei</button>`:e.type==='substitution'?`<button class="btn ghost" onclick="logSubstitution('${selected}','${m.id}')">Editar</button><button class="btn ghost" onclick="restorePlannedMeal('${selected}','${m.id}')">Voltar ao plano</button>`:e.type==='skipped'?`<button class="btn ghost" onclick="restorePlannedMeal('${selected}','${m.id}')">Consumida conforme plano</button><button class="btn ghost" onclick="logSubstitution('${selected}','${m.id}')">Registrar substituição</button>`:`<button class="btn ghost" onclick="toggleMeal('${selected}','${m.id}',true)">Segui o plano</button><button class="btn ghost" onclick="logSubstitution('${selected}','${m.id}')">Substituir</button><button class="btn ghost" onclick="skipMeal('${selected}','${m.id}')">Pulei</button>`}</div></div></div>`}).join('');
+ const t=nutritionTotals(selected);
+ if($('dayKcal'))$('dayKcal').textContent=fmt(t.kcal);
+ if($('dayProtein'))$('dayProtein').textContent=t.protein+' g';
+ if($('dayMealCount'))$('dayMealCount').textContent=t.done+'/4';
+ renderWeeklyReview();
+}
+function updateSeasonBanner(){
+ const start=new Date(SEASON_START+'T00:00:00'),end=new Date(SEASON_END+'T23:59:59'),now=new Date();
+ const status=$('seasonStatus'),bar=$('seasonProgress'),label=$('seasonProgressText');
+ if(!status||!bar||!label)return;
+ const pct=Math.max(0,Math.min(100,((now-start)/(end-start))*100));
+ bar.style.width=pct.toFixed(1)+'%';
+ if(now<start){
+  const days=Math.ceil((start-now)/86400000);
+  status.textContent='⏳ Ciclo ainda não começou';
+  label.textContent='Começa em '+days+' dias · 09/12/2026';
+ }else if(now<=end){
+  const week=Math.min(8,Math.floor((now-start)/604800000)+1);
+  const days=Math.max(0,Math.ceil((end-now)/86400000));
+  status.textContent='🔥 Temporada em andamento · Semana '+week+' de 8';
+  label.textContent=Math.round(pct)+'% concluído · '+days+' dias restantes';
+ }else{
+  status.textContent='🏁 Ciclo concluído · hora da revisão';
+  label.textContent='Temporada encerrada em 02/02/2027 · revisão prevista para 03/02/2027';
+ }
+}
+function renderTraining(){
+ updateSeasonBanner();
+ let k=day(selected).workout||rec(selected),isRest=k==='rest';
+ $('traindate').textContent=new Date(selected+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+ $('recommended').textContent='Training Season 01 · ficha sugerida para este dia';
+ $('selectedWorkoutName').textContent=isRest?'🌿 Recuperação':workouts[k].name;
+ $('selectedWorkoutDesc').textContent=isRest?'Descanso, mobilidade ou caminhada leve':workouts[k].desc;
+ $('workoutRecommendationNote').textContent=k===rec(selected)?'✓ Recomendado para hoje':'Ficha escolhida por você';
+ $('workoutchoices').innerHTML=['upperA','lowerA','upperB','lowerB','rest'].map(x=>`<button class="workoutchoice ${x===k?'active':''}" onclick="selectWorkout('${x}')"><span><b>${x==='rest'?'🌿 Recuperação':workouts[x].name}</b><small>${workouts[x].desc}</small></span><span class="choicecheck">${x===k?'✓ Selecionado':x===rec(selected)?'SUGERIDO':''}</span></button>`).join('');
+ $('workoutname').textContent=isRest?'Dia de recuperação':workouts[k].name;
+ $('workoutdesc').textContent=isRest?'Recuperação planejada':workouts[k].desc+' · Marque as séries no modo academia.';
+ $('trainstatus').textContent=isRest?'DESCANSO':completion(selected).setsDone+'/'+completion(selected).setsTotal+' SÉRIES';
+ $('trainxp').textContent='+10 XP por série concluída';
+ if(isRest){$('exerciseList').innerHTML='<div class="foodnote">Hoje é dia de recuperação. Se quiser, faça uma caminhada confortável ou mobilidade leve.</div>'}
+ else{
+  $('exerciseList').innerHTML=workouts[k].ex.map((e,i)=>{
+   let n=Number(e[1].split(' ')[0]),done=Array.from({length:n},(_,j)=>day(selected).sets[i+'-'+j]).filter(Boolean).length;
+   return `<div class="exercise"><span class="tileicon" style="background:#20354b;color:var(--blue)">🏋️</span><div style="flex:1"><b>${e[0]}</b><small>${e[1]} repetições · ${done}/${n} séries</small></div></div>`;
+  }).join('');
+ }
+ let hist=data.history.slice(-8).reverse();
+ $('traininghistory').innerHTML=hist.length?hist.map(h=>`<div class="historyrow"><span>${h.date} · ${h.exercise}</span><b>${h.load} kg</b></div>`).join(''):'<div class="sub">Suas cargas aparecerão aqui após os registros.</div>';
+}
+
+function startWorkoutMode(){
+ const k=day(selected).workout||rec(selected);
+ if(k==='rest'){toast('Hoje está marcado como recuperação. Escolha uma ficha se quiser treinar.');return}
+ modeExercise=0;renderWorkoutMode();$('workoutMode').classList.add('show');
+}
+function closeWorkoutMode(){$('workoutMode').classList.remove('show');if(modeTimer){clearInterval(modeTimer);modeTimer=null}render()}
+function renderWorkoutMode(){
+ const k=day(selected).workout||rec(selected),w=workouts[k],e=w.ex[modeExercise],n=Number(e[1].split(' ')[0]),rep=e[1].split('×')[1].trim();
+ $('modeWorkoutName').textContent=w.name+' · '+new Date(selected+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+ $('modeExerciseName').textContent=e[0];$('modeExerciseMeta').textContent=n+' séries · '+rep+' repetições';
+ $('modeProgress').textContent='Exercício '+(modeExercise+1)+' de '+w.ex.length;
+ $('modeSets').textContent=n;$('modeReps').textContent=rep;const restSec=k.startsWith('lower')&&modeExercise<2?120:(modeExercise<4?90:60);$('modeRest').textContent=restSec+'s';
+ $('modeLoad').value=day(selected).loads[modeExercise]||'';
+ const hist=data.history.filter(h=>h.exercise===e[0]&&h.date<selected).slice(-1)[0];
+ $('modePrevious').textContent=hist?'Última sessão: '+hist.load+' kg':'Sem carga anterior';
+ let count=0;
+ $('modeSetList').innerHTML=Array.from({length:n},(_,j)=>{let done=!!day(selected).sets[modeExercise+'-'+j];if(done)count++;return `<div class="mode-set ${done?'done':''}"><div><b>Série ${j+1}</b><div class="sub">${rep} repetições · ${$('modeLoad').value||'—'} kg</div></div><button onclick="modeToggleSet(${j})">${done?'✓ Concluída':'Concluir série'}</button></div>`}).join('');
+ $('modeSetCount').textContent=count+'/'+n+' concluídas';
+ $('modeTimer').textContent='Descanso: pronto';
+}
+function modeToggleSet(j){
+ const k=day(selected).workout||rec(selected),d=day(selected),key=modeExercise+'-'+j,checked=!d.sets[key];
+ if(checked&&$('modeLoad').value)saveLoad(modeExercise,$('modeLoad').value);
+ toggleSet(selected,modeExercise,j,checked);
+ renderWorkoutMode();
+ if(checked){const k=day(selected).workout||rec(selected);startRestTimer(k.startsWith('lower')&&modeExercise<2?120:(modeExercise<4?90:60));}
+}
+function saveModeLoad(){const v=$('modeLoad').value;let d=day(selected);d.loads[modeExercise]=v;localStorage.setItem(KEY,JSON.stringify(data));}
+function startRestTimer(seconds){
+ if(modeTimer)clearInterval(modeTimer);modeSeconds=seconds;$('modeTimer').textContent='Descanso: '+modeSeconds+'s';
+ modeTimer=setInterval(()=>{modeSeconds--;if(modeSeconds<=0){clearInterval(modeTimer);modeTimer=null;$('modeTimer').textContent='Descanso concluído · próxima série!';}else $('modeTimer').textContent='Descanso: '+modeSeconds+'s'},1000);
+}
+function nextModeExercise(){
+ const k=day(selected).workout||rec(selected);
+ if(modeExercise<workouts[k].ex.length-1){modeExercise++;renderWorkoutMode()}else{toast('Último exercício! Você pode finalizar o treino.')}
+}
+function previousModeExercise(){if(modeExercise>0){modeExercise--;renderWorkoutMode()}}
+function finishWorkoutMode(){
+ const d=day(selected),k=d.workout||rec(selected);
+ if(!k||k==='rest'){closeWorkoutMode();toast('Hoje é dia de recuperação');return;}
+ const total=workouts[k].ex.reduce((a,e)=>a+Number(e[1].split(' ')[0]),0);
+ const done=Object.values(d.sets||{}).filter(Boolean).length;
+ if(done===0&&!confirm('Você não marcou nenhuma série. Deseja registrar a sessão mesmo assim?'))return;
+ if(done>0&&done<Math.ceil(total*.8)&&!confirm('Você marcou '+done+' de '+total+' séries. Deseja concluir a sessão mesmo assim?'))return;
+ d.workoutCompletedAt=new Date().toISOString();d.workoutCompletion={done,total,percent:Math.round(done/total*100)};
+ data.workoutSessions=data.workoutSessions||[];
+ const record={date:selected,workout:k,done,total,percent:Math.round(done/total*100),completedAt:d.workoutCompletedAt};
+ const existing=data.workoutSessions.find(x=>x.date===selected);
+ if(existing)Object.assign(existing,record);else data.workoutSessions.push(record);
+ data.workoutSessions.sort((a,b)=>a.date.localeCompare(b.date));
+ if(!d.workoutXP){data.xp=(data.xp||0)+50;d.workoutXP=true;}
+ closeWorkoutMode();save();toast('Sessão registrada · +50 XP');
+}
+function saveLoad(i,v){let d=day(selected),k=d.workout||rec(selected);if(!k||k==='rest')return;let ex=workouts[k].ex[i][0];d.loads[i]=v;if(v){let old=data.history.find(h=>h.date===selected&&h.exercise===ex);if(old)old.load=Number(v);else data.history.push({date:selected,exercise:ex,load:Number(v)});data.history=data.history.slice(-150)}localStorage.setItem(KEY,JSON.stringify(data))}
+function renderCalendar(){let y=viewMonth.getFullYear(),m=viewMonth.getMonth();$('monthtitle').textContent=viewMonth.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});let first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate(),prev=new Date(y,m,0).getDate();let names=['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];let html=names.map(n=>`<div class="calhead">${n}</div>`).join('');for(let i=0;i<42;i++){let daynum,dt,other=false;if(i<start){daynum=prev-start+i+1;dt=new Date(y,m-1,daynum);other=true}else if(i>=start+days){daynum=i-start-days+1;dt=new Date(y,m+1,daynum);other=true}else{daynum=i-start+1;dt=new Date(y,m,daynum)}let s=iso(dt),c=completion(s),active=c.done>0,score=c.pct,grade=score>=80?'🏆':score>=50?'⭐':'⚡',activity=(s<SEASON_START||s>SEASON_END)?'—':(['—','LA','UA','⚽','UB','—','LB'][dt.getDay()]);html+=`<button class="calday ${s===selected?'selected':''} ${s===iso(today)?'today':''} ${other?'out':''} ${active?'scored':''}" style="${active?'--score:'+score+'%':''}" onclick="selectDate('${s}')"><span>${daynum}</span><small class="cal-score">${activity}</small>${active?`<small class="cal-score" aria-label="Pontuação ${score}%">${grade} ${score}%</small>`:''}</button>`} $('calendargrid').innerHTML=html;$('selectedtitle').textContent=new Date(selected+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});let c=completion(selected),wk=day(selected).workout||rec(selected);$('selectedsummary').innerHTML=`<div class="metricrow"><div class="metric"><small>REFEIÇÕES</small><strong>${c.mealDone}/4</strong></div><div class="metric"><small>SÉRIES</small><strong>${c.setsDone}/${c.setsTotal}</strong></div><div class="metric"><small>ÁGUA</small><strong>${((Number(day(selected).water)||0)/1000).toFixed(2).replace('.',',')} L</strong></div><div class="metric"><small>PROGRESSO</small><strong>${c.pct}%</strong></div></div><div class="sub">${new Date(selected+'T12:00:00').getDay()===3?'⚽ Futebol · sem musculação':wk==='rest'?'Recuperação':workouts[wk].name} · ${c.done} de ${c.total} tarefas concluídas</div><div class="between" style="margin-top:12px"><b>⭐ Pontuação do dia</b><strong style="color:${c.pct>=80?'#63d9aa':c.pct>=50?'#f1c979':'#ff9292'}">${c.pct}/100</strong></div><div class="bar" style="margin-top:7px"><div class="fill" style="width:${c.pct}%"></div></div>`}
+function selectDate(s){selected=s;render();go('home')}
+function changeMonth(n){viewMonth=new Date(viewMonth.getFullYear(),viewMonth.getMonth()+n,1);renderCalendar()}
+
+function svgLineChart(items, valueKey, color, prefix, suffix){
+ if(!items.length)return '<div class="sub" style="padding:22px 4px">Adicione registros para visualizar sua evolução.</div>';
+ const W=640,H=190,L=48,R=14,T=14,B=30,vals=items.map(x=>Number(x[valueKey]||0));
+ const min=Math.min(...vals),max=Math.max(...vals),range=max-min||1;
+ const x=i=>L+(items.length===1?(W-L-R)/2:i*(W-L-R)/(items.length-1));
+ const y=v=>T+(max-v)/range*(H-T-B);
+ const pts=items.map((o,i)=>`${x(i)},${y(Number(o[valueKey]))}`).join(' ');
+ const circles=items.map((o,i)=>`<circle cx="${x(i)}" cy="${y(Number(o[valueKey]))}" r="4" fill="${color}"><title>${prefix}${fmt(o[valueKey])}${suffix} · ${new Date(o.date+'T12:00:00').toLocaleDateString('pt-BR')}</title></circle>`).join('');
+ const labels=items.map((o,i)=>items.length<7||i===0||i===items.length-1||i%Math.ceil(items.length/5)===0?`<text x="${x(i)}" y="${H-7}" text-anchor="middle" fill="#91a3b7" font-size="10">${new Date(o.date+'T12:00:00').toLocaleDateString('pt-BR',{month:'short',year:'2-digit'})}</text>`:'').join('');
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Gráfico de evolução"><line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#34495c"/><line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#34495c"/><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${circles}${labels}<text x="4" y="${T+5}" fill="#91a3b7" font-size="10">${prefix}${fmt(max)}</text><text x="4" y="${H-B}" fill="#91a3b7" font-size="10">${prefix}${fmt(min)}</text></svg>`;
+}
+function openAllocation(){
+ modalMode='allocation';$('modaltitle').textContent='Distribuição macro da carteira';
+ const a=data.allocation||{fixed:58439,stocks:13340,fiis:8460,etfs:18110,cash:13916,crypto:3070};
+ const fields=[['fixed','Renda fixa'],['stocks','Ações'],['fiis','FIIs'],['etfs','ETFs / Exterior'],['cash','Caixa e contas'],['crypto','Criptomoedas']];
+ $('modalbody').innerHTML=fields.map(([k,n])=>`<div class="field"><label>${n} (R$)</label><input id="alloc_${k}" type="number" min="0" step="0.01" value="${a[k]||0}"></div>`).join('')+'<div class="field"><label>Data do fechamento</label><input id="modaldate" type="date" value="'+iso(today)+'"></div><div class="sub">O total será calculado automaticamente pela soma das categorias.</div>';
+ $('modalback').classList.add('show');
+}
+function openWeight(){
+ modalMode='weight';$('modaltitle').textContent='Registrar peso';
+ $('modalbody').innerHTML='<div class="field"><label>Peso (kg)</label><input id="modalvalue" type="number" min="30" max="300" step="0.1" placeholder="Ex.: 106,5"></div><div class="field"><label>Data</label><input id="modaldate" type="date" value="'+iso(today)+'"></div>';
+ $('modalback').classList.add('show');
+}
+function renderWeight(){
+ const a=[...(data.weight||[])].sort((x,y)=>x.date.localeCompare(y.date)),last=a.at(-1),current=last?Number(last.value):110,start=Number(data.weightStart||110),target=Number(data.targetWeight||90);
+ $('weightcurrent').textContent=fmt(current)+' kg';
+ $('weightremaining').textContent=fmt(Math.max(0,current-target))+' kg';
+ $('weightchart').innerHTML=svgLineChart(a,'value','#84b5ff','',' kg');
+ const task=$('weeklyWeighTask');
+ if(task){const thursday=today.getDay()===4,done=!!a.find(x=>x.date===iso(today));task.style.display=thursday?'block':'none';$('weighTaskText').textContent=done?'Pesagem registrada hoje. Próxima atualização na quinta que vem.':'Registre seu peso para atualizar automaticamente sua meta de saúde.';const btn=task.querySelector('button');if(btn){btn.textContent=done?'Editar pesagem de hoje':'Registrar peso de hoje';btn.disabled=false;btn.style.opacity='1'}}
+}
+function renderAllocation(){
+ const a=data.allocation||{fixed:58439,stocks:13340,fiis:8460,etfs:18110,cash:13916,crypto:3070};
+ const labels=[['fixed','Renda fixa'],['stocks','Ações'],['fiis','FIIs'],['etfs','ETFs / Exterior'],['cash','Caixa e contas'],['crypto','Criptomoedas']];
+ const total=labels.reduce((s,[k])=>s+Number(a[k]||0),0)||1;
+ $('allocationchart').innerHTML='<div style="height:13px;display:flex;border-radius:20px;overflow:hidden;background:#26394b">'+labels.map(([k])=>`<span style="width:${(Number(a[k]||0)/total*100)}%;background:${({fixed:'#63d9aa',stocks:'#84b5ff',fiis:'#c2a5ff',etfs:'#f1c979',cash:'#6dc7d1',crypto:'#ff9292'})[k]}"></span>`).join('')+'</div>';
+ $('allocationlist').innerHTML=labels.map(([k,n])=>`<div class="historyrow"><span>${n} · ${(Number(a[k]||0)/total*100).toFixed(1).replace('.',',')}%</span><b>${brl(a[k]||0)}</b></div>`).join('');
+}
+
+function recordWealthSnapshot(){
+ const total=Object.values(data.allocation||{}).reduce((a,b)=>a+Number(b||0),0);
+ const existing=(data.wealth||[]).find(x=>x.date===iso(today));
+ if(existing)existing.value=total;else data.wealth.push({date:iso(today),value:total});
+ data.wealth.sort((a,b)=>a.date.localeCompare(b.date));save();toast('Fechamento patrimonial registrado');
+}
+function exportBackup(){
+ const payload={app:'LIFE LEVEL',version:'3.0',exportedAt:new Date().toISOString(),data};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='life-level-backup-'+iso(today)+'.json';a.click();URL.revokeObjectURL(url);
+ toast('Backup exportado');
+}
+function importBackup(file){
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{try{
+  const parsed=JSON.parse(reader.result),incoming=parsed.data||parsed;
+  if(!incoming||typeof incoming!=='object'||!incoming.days||!incoming.allocation)throw new Error('Formato inválido');
+  if(!confirm('Restaurar este backup vai substituir os dados atuais deste navegador. Faça um backup atual antes. Continuar?'))return;
+  data={...structuredClone(base),...incoming};
+  localStorage.setItem(KEY,JSON.stringify(data));render();toast('Backup restaurado com sucesso');
+ }catch(e){alert('Não foi possível restaurar: '+e.message)}};
+ reader.readAsText(file);
+}
+function renderProjections(){
+ const total=Object.values(data.allocation||{}).reduce((a,b)=>a+Number(b||0),0);
+ const snaps=[...(data.wealth||[])].sort((a,b)=>a.date.localeCompare(b.date));
+ let monthly=0;
+ if(snaps.length>=2){const first=snaps[0],last=snaps.at(-1),months=Math.max(1,(new Date(last.date+'T12:00:00')-new Date(first.date+'T12:00:00'))/(30.4375*86400000));monthly=(Number(last.value)-Number(first.value))/months;}
+ return [1,3,5].map(y=>({years:y,value:Math.max(0,total+Math.max(0,monthly)*y*12)}));
+}
+function renderHistory(){
+ const days=Object.entries(data.days||{}),sessions=data.workoutSessions||[];
+ const weights=[...(data.weight||[])].sort((a,b)=>a.date.localeCompare(b.date)),wealth=[...(data.wealth||[])].sort((a,b)=>a.date.localeCompare(b.date));
+ const total=Object.values(data.allocation||{}).reduce((a,b)=>a+Number(b||0),0);
+ const fullDays=days.filter(([s,d])=>meals.every(m=>d.meal?.[m.id])).length;
+ const waterDays=days.filter(([s,d])=>d.water!==undefined&&(Number(d.water)||0)>=(Number(d.waterGoalSnapshot)||Number(data.waterGoal)||2500)).length;
+ const recentWeights=weights.filter(x=>(new Date(iso(today)+'T12:00:00')-new Date(x.date+'T12:00:00'))<=7*86400000);
+ const avg7=recentWeights.length?recentWeights.reduce((a,x)=>a+Number(x.value),0)/recentWeights.length:null;
+ $('historyOverview').innerHTML=[['PATRIMÔNIO ATUAL',brl(total)],['PESO MAIS RECENTE',weights.length?fmt(weights.at(-1).value)+' kg':'—'],['MÉDIA DE PESO · 7 DIAS',avg7===null?'—':fmt(avg7)+' kg'],['TREINOS CONCLUÍDOS',sessions.length],['DIAS DE ALIMENTAÇÃO COMPLETA',fullDays],['DIAS NA META DE ÁGUA',waterDays],['XP ACUMULADO',data.xp||0]].map(([a,b])=>`<div class="metric"><small>${a}</small><strong>${b}</strong></div>`).join('');
+ const monthPrefix=iso(today).slice(0,7),monthDays=days.filter(([s])=>s.startsWith(monthPrefix)),monthSessions=sessions.filter(x=>x.date.startsWith(monthPrefix)).length,monthMeals=monthDays.filter(([s,d])=>meals.every(m=>d.meal?.[m.id])).length,monthWater=monthDays.filter(([s,d])=>d.water!==undefined&&(Number(d.water)||0)>=(Number(d.waterGoalSnapshot)||Number(data.waterGoal)||2500)).length;
+ const firstWeight=weights.find(x=>x.date.startsWith(monthPrefix)),lastWeight=[...weights].reverse().find(x=>x.date.startsWith(monthPrefix)),weightDelta=firstWeight&&lastWeight?Number(lastWeight.value)-Number(firstWeight.value):null;
+ $('historyMonthly').innerHTML=`<div class="metricrow"><div class="metric"><small>SESSÕES</small><strong>${monthSessions}</strong></div><div class="metric"><small>DIAS COM DIETA COMPLETA</small><strong>${monthMeals}</strong></div><div class="metric"><small>DIAS NA META DE ÁGUA</small><strong>${monthWater}</strong></div><div class="metric"><small>VARIAÇÃO DO PESO NO MÊS</small><strong>${weightDelta===null?'—':(weightDelta>0?'+':'')+fmt(weightDelta)+' kg'}</strong></div></div>`;
+ $('historyWealth').innerHTML=wealth.length?[...wealth].reverse().slice(0,12).map(x=>`<div class="historyrow"><span>${x.date}</span><b>${brl(x.value)}</b></div>`).join(''):'<div class="sub">Sem snapshots registrados.</div>';
+ $('historyWeight').innerHTML=weights.length?[...weights].reverse().slice(0,12).map(x=>`<div class="historyrow"><span>${x.date}</span><b>${fmt(x.value)} kg</b></div>`).join(''):'<div class="sub">Sem pesagens registradas.</div>';
+ $('historyWorkouts').innerHTML=sessions.length?[...sessions].reverse().slice(0,12).map(x=>`<div class="historyrow"><span>${x.date} · ${workouts[x.workout]?.name||x.workout}</span><b>${x.percent}%</b></div>`).join(''):'<div class="sub">As sessões concluídas aparecerão aqui.</div>';
+ $('historyNutrition').innerHTML=days.filter(([s,d])=>d.mealLog&&Object.keys(d.mealLog).length).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,12).map(([s,d])=>{const t=nutritionTotals(s);return `<div class="historyrow"><span>${s} · ${t.done}/4 refeições</span><b>${t.kcal} kcal · ${t.protein} g</b></div>`}).join('')||'<div class="sub">Sem registros de alimentação.</div>';
+ $('historyAchievements').innerHTML=ACHIEVEMENTS.filter(a=>data.achievements?.[a.id]).length+' de '+ACHIEVEMENTS.length+' conquistas desbloqueadas';
+}
+
+function renderFinance(){let alloc=data.allocation||{},macroTotal=Object.values(alloc).reduce((s,v)=>s+Number(v||0),0),a=[...data.wealth].sort((x,y)=>x.date.localeCompare(y.date)),w=a.at(-1)||{value:macroTotal},first=a[0]||w;$('wealthtotal').textContent=brl(macroTotal);$('wealthcount').textContent=a.length;$('wealthchange').textContent=a.length>1?((w.value-first.value)>=0?'+':'')+brl(w.value-first.value):'—';$('wealthchangehint').textContent=a.length>1?'Desde '+new Date(first.date+'T12:00:00').toLocaleDateString('pt-BR'):'Registre os próximos meses para comparar';if(a.length){a[a.length-1]={...a[a.length-1],value:macroTotal}}else{a=[{date:iso(today),value:macroTotal}]}$('wealthchart').innerHTML=svgLineChart(a,'value','#63d9aa','R$ ','');$('wealthhistory').innerHTML=a.length?[...a].reverse().slice(0,8).map(x=>`<div class="historyrow"><span>${new Date(x.date+'T12:00:00').toLocaleDateString('pt-BR')}</span><b>${brl(x.value)}</b></div>`).join(''):'<div class="sub">Seu primeiro registro será a base para medir a evolução.</div>';renderAllocation();$('wealthProjection').innerHTML=renderProjections().map(x=>`<div class="historyrow"><span>${x.years} ano${x.years>1?'s':''}</span><b>${brl(x.value)}</b></div>`).join('')}
+function renderGoals(){
+ const alloc=data.allocation||{},patrimonio=Object.values(alloc).reduce((s,v)=>s+Number(v||0),0);
+ const pesos=[...(data.weight||[])].sort((a,b)=>a.date.localeCompare(b.date)),peso=pesos.length?Number(pesos.at(-1).value):110;
+ const targetPeso=Number(data.targetWeight||90),atingiuPeso=peso<=targetPeso;
+ $('goallist').innerHTML=data.goals.map(g=>{
+  const done=!!g.completed;
+  if(g.unit==='kg'||g.cat==='Saúde'){
+   const progresso=Math.max(0,Math.min(100,(Number(data.weightStart||110)-peso)/(Number(data.weightStart||110)-targetPeso)*100));
+   const cor=progresso>=70?'#63d9aa':progresso>=30?'#f1c979':'#ff9292';
+   const action=done?`<div class="between sub" style="margin-top:10px"><span>Conquistada em ${g.completedAt?new Date(g.completedAt+'T12:00:00').toLocaleDateString('pt-BR'):'data não informada'} · +250 XP</span><button class="iconbtn" onclick="reopenGoal(${g.id})">Reabrir</button></div>`:atingiuPeso?`<div style="margin-top:10px"><button class="btn" onclick="completeGoal(${g.id})">🏆 Concretizei esta meta</button></div>`:'';
+   return `<div class="daytask" style="${done?'opacity:.72':''}"><div class="between"><b>${g.name}</b><span class="tag">${done?'CONQUISTADA':'Saúde'}</span></div><div class="bar" style="margin:8px 0"><div style="height:100%;width:${done?100:progresso}%;background:${done?'#63d9aa':cor};border-radius:20px"></div></div><div class="sub">${fmt(peso)} kg atualmente · meta ${fmt(targetPeso)} kg · ${done?'Concluída':Math.round(progresso)+'% do caminho'}</div>${action}</div>`
+  }
+  const alvo=Number(g.target||0),atingiu=alvo>0&&patrimonio>=alvo,pct=alvo?Math.max(0,Math.min(100,patrimonio/alvo*100)):0;
+  const action=done?`<div class="between sub" style="margin-top:10px"><span>Conquistada em ${g.completedAt?new Date(g.completedAt+'T12:00:00').toLocaleDateString('pt-BR'):'data não informada'} · +250 XP</span><button class="iconbtn" onclick="reopenGoal(${g.id})">Reabrir</button></div>`:alvo?`<div class="sub" style="margin-top:8px">Patrimônio como referência: ${Math.round(pct)}% do valor-alvo. Só conclua quando realizar a compra.</div><div style="margin-top:10px"><button class="btn" onclick="completeGoal(${g.id})">🏆 Concretizei esta meta</button></div>`:`<div style="margin-top:10px"><button class="btn ghost" onclick="setGoalTarget(${g.id})">Definir valor-alvo</button></div>`;
+  return `<div class="daytask" style="${done?'opacity:.72':''}"><div class="between"><b>${g.name}</b><span class="tag">${done?'CONQUISTADA':g.cat}</span></div>${alvo?`<div class="bar" style="margin:8px 0"><div class="fill" style="width:${done?100:pct}%"></div></div><div class="sub">Patrimônio atual ${brl(patrimonio)} · objetivo ${brl(alvo)} · ${done?'Concluída':Math.round(pct)+'%'}</div>`:'<div class="sub">Defina quanto deseja juntar para a entrada do imóvel.</div>'}${action}</div>`
+ }).join('')
+}
+function setGoalTarget(id){
+ const g=data.goals.find(x=>x.id===id);if(!g)return;
+ const v=prompt('Qual valor você quer definir como meta para "'+g.name+'"? (R$)',g.target||'');
+ if(v===null)return;const n=Number(v.replace(',','.'));if(!Number.isFinite(n)||n<=0)return alert('Informe um valor válido.');
+ g.target=n;save();toast('Meta atualizada');
+}
+function completeGoal(id){
+ const g=data.goals.find(x=>x.id===id);if(!g||g.completed)return;
+ const total=Object.values(data.allocation||{}).reduce((s,v)=>s+Number(v||0),0);
+ const last=[...(data.weight||[])].sort((a,b)=>a.date.localeCompare(b.date)).at(-1),peso=last?Number(last.value):110;
+ const eligible=(g.unit==='kg'||g.cat==='Saúde')?peso<=Number(data.targetWeight||90):(Number(g.target)>0&&total>=Number(g.target));
+ if(!eligible)return toast('Meta ainda não alcançada');
+ if(!confirm('Parabéns pela conquista! Deseja marcar "'+g.name+'" como concretizada?'))return;
+ g.completed=true;g.completedAt=iso(today);g.xpAwarded=true;data.xp+=250;
+ save();toast('🏆 Meta concretizada · +250 XP');
+}
+function reopenGoal(id){
+ const g=data.goals.find(x=>x.id===id);if(!g||!g.completed)return;
+ if(!confirm('Reabrir esta meta? Os 250 XP da conquista serão estornados.'))return;
+ g.completed=false;g.completedAt=null;if(g.xpAwarded){data.xp=Math.max(0,data.xp-250);g.xpAwarded=false}
+ save();toast('Meta reaberta');
+}
+function openWealth(){modalMode='wealth';$('modaltitle').textContent='Atualizar patrimônio';$('modalbody').innerHTML='<div class="field"><label>Patrimônio consolidado (R$)</label><input id="modalvalue" type="number" min="0" placeholder="Total Investidor10 + saldos externos"></div><div class="field"><label>Data</label><input id="modaldate" type="date" value="'+iso(today)+'"></div>';$('modalback').classList.add('show')}
+function addGoal(){modalMode='goal';$('modaltitle').textContent='Nova meta de vida';$('modalbody').innerHTML='<div class="field"><label>Nome da meta</label><input id="modalname" placeholder="Ex.: Entrada do apartamento"></div><div class="field"><label>Categoria</label><input id="modalcat" placeholder="Patrimônio, Saúde, Experiência..."></div><div class="field"><label>Valor-alvo (R$ ou unidade)</label><input id="modaltarget" type="number" placeholder="Ex.: 50000"></div><div class="field"><label>Unidade</label><input id="modalunit" value="R$"></div>';$('modalback').classList.add('show')}
+function closeModal(){$('modalback').classList.remove('show')}
+function saveModal(){
+ if(modalMode==='wealth'){let v=Number($('modalvalue').value);if(v<=0)return alert('Informe um valor válido.');let date=$('modaldate').value;data.wealth=data.wealth.filter(x=>x.date!==date);data.wealth.push({value:v,date});data.wealth.sort((a,b)=>a.date.localeCompare(b.date))}
+ else if(modalMode==='weight'){let v=Number($('modalvalue').value);if(v<30||v>300)return alert('Informe um peso válido.');let date=$('modaldate').value;data.weight=(data.weight||[]).filter(x=>x.date!==date);data.weight.push({value:v,date});data.weight.sort((a,b)=>a.date.localeCompare(b.date))}
+ else if(modalMode==='allocation'){data.allocation={};['fixed','stocks','fiis','etfs','cash','crypto'].forEach(k=>data.allocation[k]=Math.max(0,Number($('alloc_'+k).value||0)));let total=Object.values(data.allocation).reduce((s,v)=>s+Number(v||0),0),date=$('modaldate')?.value||iso(today);data.wealth=data.wealth||[];data.wealth=data.wealth.filter(x=>x.date!==date);data.wealth.push({value:total,date});data.wealth.sort((a,b)=>a.date.localeCompare(b.date))}
+ else{let name=$('modalname').value.trim();if(!name)return alert('Informe o nome da meta.');data.goals.push({id:Date.now(),name,cat:$('modalcat').value||'Pessoal',target:Number($('modaltarget').value||0),current:0,unit:$('modalunit').value||'R$'})}
+ closeModal();save()
+}
+function updateGoal(id){let g=data.goals.find(x=>x.id===id),v=prompt('Atualizar progresso ('+g.unit+')',g.current);if(v===null)return;g.current=Number(v);save()}
+$('todaylabel').textContent=today.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});render();bootCloud();
+</script></body></html>
