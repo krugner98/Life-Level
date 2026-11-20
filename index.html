@@ -416,8 +416,8 @@ function loadSupabaseLibrary(){
  if(supabaseLibraryPromise)return supabaseLibraryPromise;
  supabaseLibraryPromise=new Promise(resolve=>{
   const sources=[
-   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
-   "https://unpkg.com/@supabase/supabase-js@2"
+   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js",
+   "https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"
   ];
   let index=0;
   const attempt=()=>{
@@ -425,7 +425,11 @@ function loadSupabaseLibrary(){
    if(index>=sources.length){resolve(false);return}
    const script=document.createElement("script");
    script.src=sources[index++];
-   script.onload=()=>resolve(!!window.supabase?.createClient);
+   script.async=true;
+   script.onload=()=>{
+    if(window.supabase?.createClient)resolve(true);
+    else attempt();
+   };
    script.onerror=attempt;
    document.head.appendChild(script);
   };
