@@ -276,7 +276,6 @@
  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://gwrznlvsruglrbwwraxe.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_gupdmt3YXJit5y-EYvB3dw_ucJRkDJC";
@@ -411,9 +410,40 @@ async function initializeCloudSync(){
   authMessage("Não foi possível acessar a tabela. Confira se a tabela life_level_state e as políticas RLS foram criadas. Detalhe: "+err.message);
  }finally{cloudInitializing=false}
 }
+let supabaseLibraryPromise=null;
+function loadSupabaseLibrary(){
+ if(window.supabase?.createClient)return Promise.resolve(true);
+ if(supabaseLibraryPromise)return supabaseLibraryPromise;
+ supabaseLibraryPromise=new Promise(resolve=>{
+  const sources=[
+   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+   "https://unpkg.com/@supabase/supabase-js@2"
+  ];
+  let index=0;
+  const attempt=()=>{
+   if(window.supabase?.createClient){resolve(true);return}
+   if(index>=sources.length){resolve(false);return}
+   const script=document.createElement("script");
+   script.src=sources[index++];
+   script.onload=()=>resolve(!!window.supabase?.createClient);
+   script.onerror=attempt;
+   document.head.appendChild(script);
+  };
+  attempt();
+ });
+ return supabaseLibraryPromise;
+}
 async function bootCloud(){
  try{
-  if(!window.supabase?.createClient){setSyncStatus("● Cloud indisponível");return}
+  if(!window.supabase?.createClient){
+   setSyncStatus("● Carregando conexão segura…");
+   const loaded=await loadSupabaseLibrary();
+   if(!loaded){
+    setSyncStatus("● Cloud indisponível");
+    authMessage("Não foi possível carregar a biblioteca do Supabase. Verifique a conexão, desative temporariamente bloqueadores de conteúdo para este site e recarregue a página.");
+    return;
+   }
+  }
   cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
   const {data:{session}}=await cloudClient.auth.getSession();
   if(session){cloudUser=session.user;await initializeCloudSync()}
