@@ -703,12 +703,12 @@ function weekRange(reference){
 }
 function weeklyReviewHTML(){
  const now=new Date(),todayKey=iso(now);
- const pendingEnd=localStorage.getItem('lifelevel_weekly_review_pending');
- const isRelease=(now.getDay()===0&&now.getHours()>=20)||now.getDay()!==0;
- if(!pendingEnd&&!isRelease)return '';
- const reportEnd=pendingEnd||shift(todayKey, -(((now.getDay()+6)%7)+1));
- const range=weekRange(reportEnd);
- if(!pendingEnd)localStorage.setItem('lifelevel_weekly_review_pending',range.end);
+ // A revisão só é liberada no domingo, a partir das 20h.
+ if(now.getDay()!==0||now.getHours()<20)return '';
+ const range=weekRange(todayKey);
+ // A conclusão fica registrada por semana; não reaparece em outras renderizações.
+ const dismissedEnd=localStorage.getItem('lifelevel_weekly_review_dismissed');
+ if(dismissedEnd===range.end)return '';
  const days=Array.from({length:7},(_,i)=>shift(range.start,i));
  const mealsData=days.map(s=>nutritionTotals(s));
  const kcalDays=mealsData.filter(x=>x.done>0);
@@ -726,7 +726,8 @@ function weeklyReviewHTML(){
 }
 
 function dismissWeeklyReview(){
- localStorage.removeItem('lifelevel_weekly_review_pending');
+ const range=weekRange(iso(new Date()));
+ localStorage.setItem('lifelevel_weekly_review_dismissed',range.end);
  renderWeeklyReview();
  toast('Revisão semanal concluída');
 }
