@@ -219,21 +219,16 @@
 <div class="footnote" style="text-align:center;margin-top:25px">LIFE LEVEL v3.0 · Life Dashboard · Dados salvos neste navegador</div>
 </main></div>
 
-<div class="modalback" id="authback" onclick="if(event.target===this)closeAuth()">
- <div class="modal">
-  <div class="between"><h3 style="margin:0">☁️ LIFE LEVEL Cloud</h3><button class="iconbtn" onclick="closeAuth()">✕</button></div>
-  <p class="sub">Entre ou crie sua conta para sincronizar seus dados entre dispositivos.</p>
-  <div class="field"><label>E-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="seu@email.com"></div>
-  <div class="field"><label>Senha</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres"></div>
-  <div class="actions" style="justify-content:space-between;flex-wrap:wrap">
-   <button class="btn ghost" onclick="signUpLifeLevel()">Criar conta</button>
-   <button class="btn" onclick="signInLifeLevel()">Entrar e sincronizar</button>
-  </div>
-  <div id="authMessage" class="footnote">Se a confirmação de e-mail estiver habilitada, confira sua caixa de entrada após criar a conta.</div>
-  <div id="signedInArea" style="display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-   <div class="sub" id="signedInEmail"></div>
-   <div class="row" style="margin-top:9px"><button class="btn ghost" onclick="manualSyncLifeLevel()">Sincronizar agora</button><button class="btn ghost" onclick="signOutLifeLevel()">Sair da conta</button></div>
-  </div>
+<div class="modalback show" id="authback" style="z-index:1000;background:#050b12f2">
+ <div class="modal" style="width:min(420px,100%)">
+  <div class="between"><h3 style="margin:0">☁️ LIFE LEVEL</h3></div>
+  <p class="sub">Entre com sua conta para acessar seu painel e sincronizar seu progresso.</p>
+  <form id="lifeLevelLoginForm" onsubmit="event.preventDefault();signInLifeLevel()">
+   <div class="field"><label for="authEmail">E-mail</label><input id="authEmail" type="email" autocomplete="username" placeholder="seu@email.com" required></div>
+   <div class="field"><label for="authPassword">Senha</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Sua senha" required></div>
+   <div class="actions"><button class="btn" id="lifeLevelLoginButton" type="submit">Entrar</button></div>
+  </form>
+  <div id="authMessage" class="footnote">Use a conta que você já cadastrou no Supabase.</div>
  </div>
 </div>
 
@@ -336,100 +331,134 @@ async function syncLifeLevelNow(){
  }finally{cloudBusy=false}
 }
 function openAuth(){
- $("authback").classList.add("show");
- $("signedInArea").style.display=cloudUser?"block":"none";
- if(cloudUser){$("signedInEmail").textContent="Conectado como "+(cloudUser.email||"");$("authMessage").textContent="Sua conta está conectada ao LIFE LEVEL."}
+ if(cloudUser){
+  authMessage("Conectado como "+(cloudUser.email||"")+" · seus dados sincronizam automaticamente.");
+  $("authback").classList.add("show");
+  $("lifeLevelLoginForm").style.display="none";
+ }else{
+  $("lifeLevelLoginForm").style.display="block";
+  $("authback").classList.add("show");
+ }
 }
-function closeAuth(){$("authback").classList.remove("show")}
+function closeAuth(){
+ if(cloudUser)$("authback").classList.remove("show");
+}
 function authMessage(t){$("authMessage").textContent=t}
-async function signUpLifeLevel(){
- if(!cloudClient)return authMessage("Biblioteca Supabase não carregada. Verifique sua conexão e recarregue a página.");
- const email=$("authEmail").value.trim(),password=$("authPassword").value;
- if(!email||password.length<6)return authMessage("Informe um e-mail válido e uma senha com pelo menos 6 caracteres.");
- authMessage("Criando sua conta…");
- const {data:res,error}=await cloudClient.auth.signUp({email,password});
- if(error)return authMessage(error.message);
- if(res.session){cloudUser=res.user;await initializeCloudSync();$("authButton").textContent="Conta conectada";openAuth();return}
- authMessage("Conta criada! Confira seu e-mail para confirmar o cadastro. Depois volte aqui e entre.");
-}
 async function signInLifeLevel(){
- if(!cloudClient)return authMessage("Biblioteca Supabase não carregada. Verifique sua conexão e recarregue a página.");
+ if(!cloudClient)return authMessage("Não foi possível iniciar o login. Recarregue a página e tente novamente.");
  const email=$("authEmail").value.trim(),password=$("authPassword").value;
  if(!email||!password)return authMessage("Informe seu e-mail e sua senha.");
- authMessage("Entrando…");
- const {data:res,error}=await cloudClient.auth.signInWithPassword({email,password});
- if(error)return authMessage(error.message);
- cloudUser=res.user;await initializeCloudSync();$("authButton").textContent="Conta conectada";openAuth();
+ const button=$("lifeLevelLoginButton");
+ button.disabled=true;button.textContent="Entrando…";
+ authMessage("Validando seu acesso…");
+ try{
+  const {data:res,error}=await cloudClient.auth.signInWithPassword({email,password});
+  if(error)throw error;
+  cloudUser=res.user;
+  await initializeCloudSync();
+  $("authback").classList.remove("show");
+  $("lifeLevelLoginForm").style.display="block";
+  $("authButton").textContent="Conta conectada";
+  $("authPassword").value="";
+ }catch(err){
+  console.error("LIFE LEVEL login:",err);
+  authMessage("Não foi possível entrar ou sincronizar: "+(err.message||"erro desconhecido"));
+ }finally{
+  button.disabled=false;button.textContent="Entrar";
+ }
 }
 async function signOutLifeLevel(){
  if(!cloudClient)return;
- await cloudClient.auth.signOut();cloudUser=null;cloudSyncAllowed=false;
+ await cloudClient.auth.signOut();
+ cloudUser=null;cloudSyncAllowed=false;
  setSyncStatus("● Somente neste dispositivo");
- $("authButton").textContent="Entrar / Sincronizar";
- $("signedInArea").style.display="none";authMessage("Você saiu. Os dados locais continuam neste navegador.");
+ $("authButton").textContent="Entrar";
+ $("lifeLevelLoginForm").style.display="block";
+ $("authback").classList.add("show");
+ authMessage("Você saiu da conta. Entre novamente para acessar o LIFE LEVEL.");
 }
-async function manualSyncLifeLevel(){
- if(!cloudClient||!cloudUser)return;
- if(!cloudSyncAllowed){
-  if(!confirm("Enviar os dados deste navegador para sua conta LIFE LEVEL na nuvem? Os dados da nuvem serão substituídos."))return;
-  cloudSyncAllowed=true;
- }
- await syncLifeLevelNow();
+async function syncLifeLevelNow(){
+ if(!cloudClient||!cloudUser||!cloudSyncAllowed)return;
+ if(cloudBusy)return;
+ cloudBusy=true;setSyncStatus("● Sincronizando…");
+ try{
+  const payload={user_id:cloudUser.id,data:data,updated_at:new Date().toISOString()};
+  const {error}=await cloudClient.from("life_level_state").upsert(payload,{onConflict:"user_id"});
+  if(error)throw error;
+  setSyncStatus("● Sincronizado");
+ }catch(err){
+  console.error("LIFE LEVEL cloud sync:",err);
+  setSyncStatus("● Erro de sincronização");
+  throw err;
+ }finally{cloudBusy=false}
 }
 async function initializeCloudSync(){
  if(!cloudClient||!cloudUser||cloudInitializing)return;
  cloudInitializing=true;
- setSyncStatus("● Verificando nuvem…");
+ setSyncStatus("● Sincronizando seus dados…");
  try{
+  const marker="lifelevel_cloud_initialized_"+cloudUser.id;
+  const alreadyInitialized=localStorage.getItem(marker)==="1";
   const {data:remote,error}=await cloudClient.from("life_level_state").select("data,updated_at").eq("user_id",cloudUser.id).maybeSingle();
   if(error)throw error;
+
   if(remote&&remote.data){
-   if(LOCAL_EXISTED){
-    const useLocal=confirm("Encontramos dados neste navegador e também na nuvem. OK = enviar os dados deste dispositivo para a nuvem. Cancelar = escolher outra opção.");
-    if(useLocal){
-     cloudSyncAllowed=true;await syncLifeLevelNow();
-    }else{
-     const useCloud=confirm("Deseja substituir os dados deste navegador pelos dados que estão na nuvem? Esta ação substitui os dados locais atuais.");
-     if(useCloud){
-      data=remote.data;localStorage.setItem(KEY,JSON.stringify(data));cloudSyncAllowed=true;render();setSyncStatus("● Sincronizado");
-     }else{
-      cloudSyncAllowed=false;setSyncStatus("● Conectado · sync pausado");
-      authMessage("Conta conectada, mas sincronização pausada para evitar sobrescrever dados. Use Sincronizar agora depois de decidir.");
-     }
-    }
+   if(!alreadyInitialized&&LOCAL_EXISTED){
+    // First login on the original device: preserve its existing LIFE LEVEL progress.
+    cloudSyncAllowed=true;
+    await syncLifeLevelNow();
    }else{
-    data=remote.data;localStorage.setItem(KEY,JSON.stringify(data));cloudSyncAllowed=true;render();setSyncStatus("● Sincronizado");
+    // Returning login or a new device: cloud is the source of truth.
+    data=remote.data;
+    localStorage.setItem(KEY,JSON.stringify(data));
+    cloudSyncAllowed=true;
+    render();
+    setSyncStatus("● Sincronizado");
    }
   }else{
-   cloudSyncAllowed=true;await syncLifeLevelNow();
+   // First cloud save: upload the local progress.
+   cloudSyncAllowed=true;
+   await syncLifeLevelNow();
   }
+  localStorage.setItem(marker,"1");
   $("authButton").textContent="Conta conectada";
-  $("signedInArea").style.display="block";$("signedInEmail").textContent="Conectado como "+(cloudUser.email||"");
  }catch(err){
-  console.error("LIFE LEVEL cloud init:",err);
-  cloudSyncAllowed=false;setSyncStatus("● Falha na conexão");
-  authMessage("Não foi possível acessar a tabela. Confira se a tabela life_level_state e as políticas RLS foram criadas. Detalhe: "+err.message);
+  cloudSyncAllowed=false;
+  setSyncStatus("● Falha na sincronização");
+  throw err;
  }finally{cloudInitializing=false}
 }
 async function bootCloud(){
  try{
-  if(!window.supabase?.createClient){
-   setSyncStatus("● Cloud indisponível");
-   authMessage("A biblioteca do Supabase não carregou. Recarregue a página e confira sua conexão.");
-   return;
-  }
-  cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  if(!window.supabase?.createClient)throw new Error("Biblioteca do Supabase não carregou.");
+  cloudClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
+   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
   const {data:{session},error}=await cloudClient.auth.getSession();
   if(error)throw error;
-  if(session){cloudUser=session.user;await initializeCloudSync()}
-  cloudClient.auth.onAuthStateChange((_event,session)=>{
-   if(session){cloudUser=session.user;setTimeout(()=>initializeCloudSync(),0)}
-   else if(cloudUser){cloudUser=null;cloudSyncAllowed=false;setSyncStatus("● Somente neste dispositivo")}
+  if(session){
+   cloudUser=session.user;
+   await initializeCloudSync();
+   $("authback").classList.remove("show");
+   $("authButton").textContent="Conta conectada";
+  }else{
+   $("authback").classList.add("show");
+   $("authButton").textContent="Entrar";
+  }
+  cloudClient.auth.onAuthStateChange((event,session)=>{
+   if(event==="SIGNED_OUT"){
+    cloudUser=null;cloudSyncAllowed=false;
+    setSyncStatus("● Somente neste dispositivo");
+    $("authback").classList.add("show");
+   }else if(event==="SIGNED_IN"&&session){
+    cloudUser=session.user;
+   }
   });
  }catch(err){
-  console.error("LIFE LEVEL bootCloud:",err);
-  setSyncStatus("● Cloud indisponível");
-  authMessage("Falha ao iniciar a conexão: "+(err?.message||"erro desconhecido"));
+  console.error("LIFE LEVEL cloud boot:",err);
+  setSyncStatus("● Falha na conexão");
+  authMessage("Não foi possível conectar ao LIFE LEVEL: "+(err.message||"erro desconhecido"));
+  $("authback").classList.add("show");
  }
 }
 function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
