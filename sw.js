@@ -1,4 +1,4 @@
-const CACHE_NAME = 'life-level-shell-v1';
+const CACHE_NAME = 'life-level-shell-v69';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 const CDN_CACHE = 'life-level-cdn-v1';
 self.addEventListener('install', event => {
